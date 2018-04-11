@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Homework Helper</title> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="assets/css/framework.css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+  </head>
+
+  <body>
+    <div class="body-wrapper row">
+
+      <div class="calendar-modal-container col col-8">
+        <div id="calendar-modal" class="rounded">
+          <div class="titlebar-section">
+            <img id="titlebar-icon" src="assets/img/calendar.svg" />
+          </div>
+          <div class="toggleables-section">
+            <div class="header-title clickable row">
+              <div class="image-wrap col" style="background-image: url('assets/img/stack.svg')"></div>
+              <div class="header-text col"><span>Show</span> courses</div>
+            </div>
+            <div class="header-title clickable row">
+              <div class="image-wrap col" style="background-image: url('assets/img/clipboard.svg')"></div>
+              <div class="header-text col"><span>Show</span> assignments</div>
+            </div>
+          </div>
+
+          <div class="calendar-section">
+            <div class="fade-left clickable border"></div>
+            <div class="fade-right clickable border"></div>
+            <div id="current-month" class="calendar-object center rounded">
+              <div class="calendar-month-section">
+                Month
+              </div>
+
+              <div class="calendar-weekdays-section">
+                <ul class="weekdays flex center">
+                  <li>S</li>
+                  <li>M</li>
+                  <li>T</li>
+                  <li>W</li>
+                  <li>T</li>
+                  <li>F</li>
+                  <li>S</li>
+                </ul>
+              </div>
+
+              <div class="calendar-days-section">
+                <ul class="days flex center">
+                </ul> 
+                <script> // get current month info and preload 
+                  // number of days in month
+                  var daysInMonth = (month, year) => new Date(year, month+1, 0).getDate();
+                  // weekday of first day in month
+                  var firstDay = (month, year) => new Date(year, month, 1).getDay();
+
+                  var generateMonthView = function(month, year) {
+                    var now = new Date();
+                    var today = now.getDate(); // today
+                    var currMonth = now.getMonth();
+                    var currYear = now.getFullYear();
+
+                    var dayListView = '';
+                    var days = daysInMonth(month, year)
+
+                    var daysInView = 5 * 7; // rows x days in week
+                    var daysCounted = 0;
+    
+                    for (var i=firstDay(month, year); i > 0; i--) { // add prev month days to view
+                      var date = new Date(year, month,  -1 * daysCounted).getDate();
+                      var html = `<li class="prev-month">${date}</li>`;
+                      dayListView += html;
+                      daysCounted++;
+                    }
+
+                    for (var i=1; i <= days; i++) { // add current month days to view
+                      var html = `
+                        <li class="curr-month${ (i == today && currMonth == month && currYear == year) ? ' active' : '' }">
+                          ${i}
+                        </li>`
+                      ;
+                      dayListView += html;
+                      daysCounted++;
+                    }
+
+                    var daysLeft = daysInView - daysCounted;
+                    for (var i=1; i <= daysLeft; i++ ) { // add next month days to view
+                      var html = `<li class="next-month">${i}</li>`;
+                      dayListView += html;
+                      daysCounted++;
+                    } 
+
+                    return dayListView; // raw html
+                  };
+
+                  // get current month info
+                  var now = new Date();
+                  var today = now.getDate(); // today
+                  var currMonth = now.getMonth();
+                  var currYear = now.getFullYear();
+                  
+                  var currDaysView = generateMonthView(currMonth, currYear);
+                      
+                   
+                </script>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="todo-modal-container col col-4">
+        <div id="todo-modal" class="rounded">
+
+        </div>
+      </div>
+
+    </div>
+  </body>
+</html>
