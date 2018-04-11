@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="32px" viewBox="0 0 24 32" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>clipboard</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" transform="translate(-586.000000, -300.000000)">
+            <g id="icons" transform="translate(31.000000, 238.000000)">
+                <g id="glyphs" transform="translate(268.000000, 62.000000)">
+                    <g id="clipboard" transform="translate(287.000000, 0.000000)">
+                        <rect id="board" fill="#D38F76" x="0" y="3" width="24" height="29" rx="2"></rect>
+                        <rect id="paper" fill="#FFFFFF" x="2" y="5" width="20" height="25" rx="1"></rect>
+                        <path d="M10,2 C10,0.8954305 10.8954305,0 12,0 C13.1045695,0 14,0.8954305 14,2 L17.7180574,2 C18.1638168,2 18.3254599,2.04641281 18.4884229,2.13356635 C18.6513858,2.2207199 18.7792801,2.34861419 18.8664336,2.51157715 C18.9535872,2.67454011 19,2.83618323 19,3.2819426 L19,7 L5,7 L5,3.2819426 C5,2.83618323 5.04641281,2.67454011 5.13356635,2.51157715 C5.2207199,2.34861419 5.34861419,2.2207199 5.51157715,2.13356635 C5.67454011,2.04641281 5.83618323,2 6.2819426,2 L10,2 Z" id="Combined-Shape" fill="#E5E5E5"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
