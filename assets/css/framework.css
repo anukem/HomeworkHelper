@@ -1,0 +1,446 @@
+/* a lightweight but incredibly lit CSS framework 
+ * -- by Braxton Gunter 
+ */
+
+/* dev */
+[class*="_test"] {
+  border-style: dashed; !important
+  border-width: 1px; !important
+}
+._test, ._test-red {
+  border-color: red; !important
+}
+._test-green {
+  border-color: green; !important
+}
+._test-blue {
+    border-color: blue; !important
+}
+
+/* general interfacing */
+[class*='-wrapper'] {
+	position: relative;
+	height: 100%;
+	width: 100%;
+}
+
+[class*='overlay'] {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.overlay-dark {
+	background-color: rgba(0,0,0, 0.75);
+}
+.overlay-light {
+	background-color: rgba(255,255,255, 0.75);
+}
+
+/* position */
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute; 
+}
+.fixed {
+  position: fixed;
+}
+
+/* alignments */
+.left-align {
+	text-align: left;
+}
+.right-align {
+	text-align: right;
+}
+.center {
+	text-align: center;
+}
+
+/* text manipulation */
+.truncate {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap
+}
+.uppercase {
+	text-transform: uppercase;
+}
+
+/* table display */
+.table {
+	display: table;
+}
+.table-cell {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+/* inline block display */
+.inline-block {
+	display: inline-block;
+}
+
+/* display flex (on the haters) */
+[class*='flex'] {
+	display: -ms-flexbox;
+	display: -webkit-flex;
+	display: flex;
+	align-items: center;
+}
+.flex-start {
+	justify-content: flex-start;
+}
+.flex-center {
+	justify-content: center;
+}
+.flex-end {
+	justify-content: flex-end;
+}
+
+/* border & border-radius */
+.border {
+	border-width: 1px;
+	border-style: solid;
+}
+.border-top {
+	border-top-width: 1px;
+	border-top-style: solid;
+}
+.border-bottom {
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+.border-left {
+	border-left-width: 1px;
+	border-left-style: solid;
+}
+.border-right {
+	border-right-width: 1px;
+	border-right-style: solid;
+}
+
+
+[class*='rounded'],
+.circle {
+	-webkit-background-clip: padding-box; 
+  -moz-background-clip: padding; 
+  background-clip: padding-box;
+}
+.rounded {
+	-webkit-border-radius: 8px;
+	-moz-border-radius: 8px;
+	border-radius: 8px;
+}
+.rounded-top {
+	-webkit-border-radius: 8px 8px 0 0;
+	-moz-border-radius: 8px 8px 0 0;
+	border-radius: 8px 8px 0 0;
+}
+.rounded-bottom {
+	-webkit-border-radius: 0 0 8px 8px;
+	-moz-border-radius: 0 0 8px 8px;
+	border-radius: 0 0 8px 8px;
+}
+.rounded-left {
+	-webkit-border-radius: 8px 0 0 8px;
+	-moz-border-radius: 8px 0 0 8px;
+	border-radius: 8px 0 0 8px;
+}
+.rounded-right {
+	-webkit-border-radius: 0 8px 8px 0;
+	-moz-border-radius: 0 8px 8px 0;
+	border-radius: 0 8px 8px 0;
+}
+.rounded-top-left {
+	-webkit-border-radius: 8px 0 0 0;
+	-moz-border-radius: 8px 0 0 0;
+	border-radius: 8px 0 0 0;
+}
+.rounded-top-right {
+	-webkit-border-radius: 0 8px 0 0;
+	-moz-border-radius: 0 8px 0 0;
+	border-radius: 0 8px 0 0;
+}
+.rounded-bottom-left {
+	-webkit-border-radius: 0 0 0 8px;
+	-moz-border-radius: 0 0 0 8px;
+	border-radius: 0 0 0 8px;
+}
+.rounded-bottom-right {
+	-webkit-border-radius: 0 0 8px 0;
+	-moz-border-radius: 0 0 8px 0;
+	border-radius: 0 0 8px 0;
+}
+.circle {
+	border-radius: 50%;
+}
+
+/* col container */
+.row {
+	width: 100%;
+	min-height: 1px;
+}
+.row::after,
+.row::before {
+	display: table;
+	width: 100%;
+	content: '';
+	clear: both;
+}
+
+.clearfix {
+	display: table;
+	width: 100%;
+	content: '';
+	clear: both;
+}
+
+[class*='col-'].right,
+[class*='col-'].push-right {
+	float: right;
+}
+
+
+/* general columns */
+.hide {
+	display: none;
+}
+.col {
+	float: left;
+}
+
+/* columns */
+.col-1 {
+	width: 8.33%;
+}
+.col-2 {
+	width: 16.66%;
+}
+.col-3 {
+	width: 25%;
+}
+.col-4 {
+	width: 33.33%;
+}
+.col-5 {
+	width: 41.66%;
+}
+.col-6 {
+	width: 50%;
+}
+.col-7 {
+	width: 58.33%;
+}
+.col-8 {
+	width: 66.66%;
+}
+.col-9 {
+	width: 75%;
+}
+.col-10 {
+	width: 83.33%;
+}
+.col-11 {
+	width: 91.66%;
+}
+.col-12 {
+	width: 100%;
+}
+
+/* MOBILE (exclusive) */
+@media (max-width: 40em) {
+	.xs-hide {
+		display: none;
+	}
+	.xs-col {
+		float: left;
+	}
+
+	/* columns */
+	.xs-col-1 {
+		width: 8.33%;
+	}
+	.xs-col-2 {
+		width: 16.66%;
+	}
+	.xs-col-3 {
+		width: 25%;
+	}
+	.xs-col-4 {
+		width: 33.33%;
+	}
+	.xs-col-5 {
+		width: 41.66%;
+	}
+	.xs-col-6 {
+		width: 50%;
+	}
+	.xs-col-7 {
+		width: 58.33%;
+	}
+	.xs-col-8 {
+		width: 66.66%;
+	}
+	.xs-col-9 {
+		width: 75%;
+	}
+	.xs-col-10 {
+		width: 83.33%;
+	}
+	.xs-col-11 {
+		width: 91.66%;
+	}
+	.xs-col-12 {
+		width: 100%;
+	}
+}
+
+
+/* PHABLET */
+@media (min-width: 40em) and (max-width: 52em) {
+	.sm-hide {
+		display: none;
+	}
+	.sm-col {
+		float: left;
+	}
+
+	/* columns */
+	.sm-col-1 {
+		width: 8.33%;
+	}
+	.sm-col-2 {
+		width: 16.66%;
+	}
+	.sm-col-3 {
+		width: 25%;
+	}
+	.sm-col-4 {
+		width: 33.33%;
+	}
+	.sm-col-5 {
+		width: 41.66%;
+	}
+	.sm-col-6 {
+		width: 50%;
+	}
+	.sm-col-7 {
+		width: 58.33%;
+	}
+	.sm-col-8 {
+		width: 66.66%;
+	}
+	.sm-col-9 {
+		width: 75%;
+	}
+	.sm-col-10 {
+		width: 83.33%;
+	}
+	.sm-col-11 {
+		width: 91.66%;
+	}
+	.sm-col-12 {
+		width: 100%;
+	}
+}
+
+/* TABLET */
+@media (min-width: 52em) and (max-width: 64em) {
+	.md-hide {
+		display: none;
+	}
+	.md-col {
+		float: left;
+	}
+	
+	/* columns */
+	.md-col-1 {
+		width: 8.33%;
+	}
+	.md-col-2 {
+		width: 16.66%;
+	}
+	.md-col-3 {
+		width: 25%;
+	}
+	.md-col-4 {
+		width: 33.33%;
+	}
+	.md-col-5 {
+		width: 41.66%;
+	}
+	.md-col-6 {
+		width: 50%;
+	}
+	.md-col-7 {
+		width: 58.33%;
+	}
+	.md-col-8 {
+		width: 66.66%;
+	}
+	.md-col-9 {
+		width: 75%;
+	}
+	.md-col-10 {
+		width: 83.33%;
+	}
+	.md-col-11 {
+		width: 91.66%;
+	}
+	.md-col-12 {
+		width: 100%;
+	}
+}
+
+/* DESKTOP */
+@media (min-width: 64em) {
+	.lg-hide {
+		display: none;
+	}
+	.lg-col {
+		float: left;
+	}
+	
+	/* columns */
+	.lg-col-1 {
+		width: 8.33%;
+	}
+	.lg-col-2 {
+		width: 16.66%;
+	}
+	.lg-col-3 {
+		width: 25%;
+	}
+	.lg-col-4 {
+		width: 33.33%;
+	}
+	.lg-col-5 {
+		width: 41.66%;
+	}
+	.lg-col-6 {
+		width: 50%;
+	}
+	.lg-col-7 {
+		width: 58.33%;
+	}
+	.lg-col-8 {
+		width: 66.66%;
+	}
+	.lg-col-9 {
+		width: 75%;
+	}
+	.lg-col-10 {
+		width: 83.33%;
+	}
+	.lg-col-11 {
+		width: 91.66%;
+	}
+	.lg-col-12 {
+		width: 100%;
+	}
+}

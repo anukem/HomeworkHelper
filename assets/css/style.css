@@ -1,0 +1,125 @@
+* {
+	box-sizing: border-box;
+	color: inherit;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	border-color: inherit;
+	text-align: inherit;
+	text-decoration: inherit;
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+	height: 100vh;
+	width: 100vw;
+	background: #242730;
+	font-family: 'Gotham Rounded', sans-serif;
+  color: #F5F6F7;
+	font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.7px;
+	position: relative;
+}
+
+ul li {
+  list-style-type: none;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+[class*="-modal-container"] {
+  position: relative;
+  height: 100%;
+  padding: 50px;
+}
+.calendar-modal-container {
+  padding-right: 25px;
+}
+.todo-modal-container {
+  padding-left: 25px;
+}
+
+#calendar-modal, #todo-modal {
+  position: relative;
+  padding: 30px;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+}
+
+#calendar-modal {
+  background: #282C36;
+}
+#todo-modal {
+  background: #F5F6F7;
+}
+
+#titlebar-icon {
+  display: block;
+  margin: auto;
+}
+
+[class*="-section"] {
+  margin-bottom: 20px;
+}
+
+.header-title {
+  height: 50px;
+}
+.header-title .header-text {
+  width: calc(100% - 60px);
+  line-height: 50px;
+}
+
+.image-wrap {
+  width: 60px;
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.fade-left, .fade-right {
+  position: absolute;
+  width: 25%;
+  height: 500px; /* arbitrarily clipped */
+  z-index: 100
+}
+.fade-left {
+  left: 0;
+  /* background: linear-gradient(to left, rgba(40,44,54,1), rgba(,,,0)) */
+}
+.fade-right {
+  right: 0;
+  /* background: linear-gradient(to right, rgba(40,44,54,1), rgba(,,,0)) */
+}
+
+.calendar-section {
+  position: relative;
+  overflow-y: hidden;
+  overflow-x: visible;
+  height: 300px;
+}
+
+.calendar-object {
+  position: absolute;
+  width: 300px;
+}
+
+#current-month {
+  left: 50%;
+  margin-left: -150px;
+}
+
+.calendar-object .calendar-month-section {
+  font-size: 20px;
+  color: #5DA395;
+}
+
+.calendar-object li {
+  display: inline-block;
+  width: calc(100% * 1/7);
+}
