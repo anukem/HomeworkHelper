@@ -90,30 +90,41 @@ ul li {
 }
 .fade-left {
   left: 0;
-  /* background: linear-gradient(to left, rgba(40,44,54,1), rgba(,,,0)) */
+  background: linear-gradient(to right, rgba(40,44,54,1) 20%, rgba(0,0,0,0));
 }
 .fade-right {
   right: 0;
-  /* background: linear-gradient(to right, rgba(40,44,54,1), rgba(,,,0)) */
+  background: linear-gradient(to left, rgba(40,44,54,1) 20%, rgba(0,0,0,0));
 }
 
-.calendar-section {
-  position: relative;
-  overflow-y: hidden;
-  overflow-x: visible;
+.calendar-fade-container-section {
   height: 234px;
+  width: 100%;
+  overflow-y: hidden;
+}
+
+.calendars-container {
+  width: 100%;
+}
+
+#calendars {
+  width: 100%;
+  height: 100%;
+  overflow: scroll; 
+  padding: 0 50px;
+  white-space: nowrap;
 }
 
 .calendar-object {
-  position: absolute;
-  width: 300px;
   z-index: 90;
+  margin-right: 5vw;
 }
 
-#current-month {
-  left: 50%;
-  margin-left: -150px;
+.calendar-object:last-child {
+  margin-right: 0;
 }
+
+.calendar-object#current-month {}
 
 .calendar-object .calendar-month-section {
   font-size: 20px;
@@ -133,6 +144,7 @@ ul li {
   margin-bottom: 12px;
   position: relative;
   z-index: 80;
+  cursor: pointer;
 }
 
 .calendar-object .days .date.active::before {
