@@ -200,8 +200,8 @@
 	clear: both;
 }
 
-[class*='col-'].right,
-[class*='col-'].push-right {
+.col.right,
+.col.push-right {
 	float: right;
 }
 

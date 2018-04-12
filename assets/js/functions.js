@@ -37,6 +37,22 @@ var getDayName = (day) => [
   "Saturday"
 ][day];
 
+// add meta-data tags
+var addDateInfo = function(element, date) {
+  element.dataset.month = getMonthName(date.getMonth());
+  element.dataset.day = getDayName(date.getDay());
+  element.dataset.date = date.getDate();
+  element.dataset.year = date.getFullYear();
+};
+
+// date event listeners
+var addDateEventListeners = function(element) {
+  element.addEventListener('click', function() {
+    // TODO
+    console.log(`${element.dataset.day}, ${element.dataset.month} ${element.dataset.date} ${element.dataset.year}`);
+  });
+};
+
 var generateMonthDays = function(month, year, today, currMonth, currYear) {
   var element;
   var fragment = document.createDocumentFragment();
@@ -46,22 +62,35 @@ var generateMonthDays = function(month, year, today, currMonth, currYear) {
   var daysCounted = 0;
 
   for (var i=firstDay(month, year); i > 0; i--) { // add prev month days to view
-    var date = new Date(year, month,  -1 * daysCounted).getDate();
+    var date = new Date(year, month,  -1 * daysCounted);
 
     element = document.createElement('li');
-    element.className = 'prev-month date';
-    element.innerText = date;
-    // TODO: add listeners
+    element.className = 'prev-month date animated';
+    element.innerText = date.getDate();
+    addDateInfo(element, date);
+
+    // add listeners
+    addDateEventListeners(element);
 
     fragment.appendChild(element);
     daysCounted++;
   }
 
   for (var i=1; i <= days; i++) { // add current month days to view
+    var date = new Date(year, month, i);
+
     element = document.createElement('li'); 
-    element.className = `curr-month date ${(i == today && currMonth == month && currYear == year) ? 'active' : '' }`;
+    element.className = 'curr-month date animated';
+    // today?
+    if (i == today && currMonth == month && currYear == year) {
+      element.className += ' active';
+      element.id = 'today';
+    }
     element.innerText = i;
-    // TODO: add listeners
+    addDateInfo(element, date);
+
+    // add listeners
+    addDateEventListeners(element);
 
     fragment.appendChild(element);
     daysCounted++;
@@ -69,11 +98,15 @@ var generateMonthDays = function(month, year, today, currMonth, currYear) {
 
   var daysLeft = daysInView - daysCounted;
   for (var i=1; i <= daysLeft; i++ ) { // add next month days to view
+    var date = new Date(year, month+1, i);
 
     element = document.createElement('li'); 
-    element.className = 'next-month date';
+    element.className = 'next-month date animated';
     element.innerText = i;
-    // TODO: add listeners
+    addDateInfo(element, date);
+
+    // add listeners
+    addDateEventListeners(element);
 
     fragment.appendChild(element);
     daysCounted++;
