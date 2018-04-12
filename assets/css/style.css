@@ -51,7 +51,7 @@ ul li {
   padding: 30px;
   width: 100%;
   height: 100%;
-  overflow: scroll;
+  overflow: hidden;
 }
 
 #calendar-modal {
@@ -68,6 +68,9 @@ ul li {
 
 [class*="-section"] {
   margin-bottom: 24px;
+}
+[class*="-section"]:last-child {
+  margin-bottom: 0;
 }
 
 .header-title {
@@ -127,8 +130,6 @@ ul li {
   margin-right: 0;
 }
 
-.calendar-object#current-month {}
-
 .calendar-object .calendar-month-section {
   font-size: 20px;
   color: #5DA395;
@@ -174,12 +175,21 @@ ul li {
   color: #9FA1A5;
 }
 
+.schedule-section {
+  height: calc(100% - (30px + 24px + 234px + 24px));
+}
+
 #schedule-date {
   font-size: 10px;
   color: #9FA1A5;
 }
 
-.planner .hour {
+.planner-section {
+  height: calc(100% - (50px + 24px));
+  overflow: scroll;
+}
+
+#planner .hour {
   height: 24px;
   line-height: 24px;
   margin-bottom: 5px;
@@ -193,11 +203,48 @@ ul li {
   content: '';
   position: absolute;
   background-color: #242730;
-  width: calc(100% - 20px);
+  width: calc(100% - 40px);
   left: 20px;
+  right: 20px;
   height: 4px;
   top: 50%;
   margin-top: -2px;
   border-radius: 40px;
 }
 
+.course {
+  left: calc(8.33% + 50px);
+  width: 25%;
+  z-index: 300;
+  padding: 8px;
+}
+
+.course h3 {
+  font-weight: 500;
+  font-size: 12px;
+  margin-bottom: 4px;
+}
+.course h4 {
+  font-weight: 300;
+  font-size: 10px;
+}
+
+.course.small {   /* 45 - 50 min */
+  height: 30px;
+}
+.course.med {     /* 1 hr - 1hr 30 min */
+  height: 55px;
+}
+.course.large {   /* 2hr - 3 hr */
+  height: 75px;
+}
+
+.course.a {
+  background-color: #E45879;
+}
+.course.b {
+  background-color: #E47D58;
+}
+.course.c {
+  background-color: #2E63BC;
+}

@@ -21,7 +21,7 @@
           <div class="titlebar-section">
             <img id="titlebar-icon" src="assets/img/calendar.svg" />
           </div>
-
+<!--
           <div class="toggleables-section">
             <div class="header-title clickable row">
               <div class="image-wrap col" style="background-image: url('assets/img/stack.svg')"></div>
@@ -32,7 +32,7 @@
               <div class="header-text col">Create assignment</div>
             </div>
           </div>
-
+-->
           <div class="calendar-fade-container-section relative">
             <div class="fade-left absolute clickable"></div>
             <div class="fade-right absolute clickable"></div>
@@ -46,7 +46,7 @@
 
           <div class="schedule-section">
             <div class="title-section">
-              <div class="header-title clickable row">
+              <div class="header-title row">
                 <div class="image-wrap col" style="background-image: url('assets/img/star.svg')"></div>
                 <div class="header-text col">
                   <span id="schedule-time" class="col">Today</span>
@@ -56,9 +56,22 @@
             </div>
 
             <div class="planner-section">
-              <div id="planner" class="planner relative">
+              <div id="planner" class="relative">
 
-                <!-- NOTE: insert course info here -->
+                <!-- NOTE: insert course elements here -->
+                <div class="course b small absolute rounded" style="top: 18px;">
+                  <h3 class="course-title">COMS4111</h3>
+                </div>
+                
+                <div class="course a med absolute rounded" style="top: 100px;">
+                  <h3 class="course-title">COMS4170</h3>
+                  <h4 class="course-meta">2:40PM in Building A</h4>
+                </div>
+
+                <div class="course c large absolute rounded" style="top: 222px;">
+                  <h3 class="course-title">ENGL2210</h3>
+                  <h4 class="course-meta">3:10PM in Building C</h4>
+                </div>
 
                 <div class="hour row" data-hour="8">
                   <div class="hour-text-wrapper col col-1 right-align">8 AM</div>
