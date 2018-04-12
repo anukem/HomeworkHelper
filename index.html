@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html>
   <head>
     <title>Homework Helper</title> 
@@ -8,7 +7,10 @@
 
     <link rel="stylesheet" type="text/css" href="assets/css/framework.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+
     <script src="assets/js/functions.js"></script>
+    <script src="assets/js/controller.js" defer></script>
+    <script src="assets/js/script.js" defer></script>
   </head>
 
   <body>
@@ -31,11 +33,15 @@
             </div>
           </div>
 
-          <div class="calendar-section">
-            <div class="fade-left clickable border"></div>
-            <div class="fade-right clickable border"></div>
+          <div class="calendar-fade-container-section relative">
+            <div class="fade-left absolute clickable"></div>
+            <div class="fade-right absolute clickable"></div>
 
-            <!-- NOTE: insert calendar objects HERE -->
+            <div class="calendars-container">
+              <div id="calendars" >
+                <!-- NOTE: insert calendar objects HERE -->
+              </div>
+            </div>
 
           </div>
 
