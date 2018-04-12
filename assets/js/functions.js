@@ -1,3 +1,9 @@
+// appropriately define modulo
+var mod = function (n, m) {
+    var remain = n % m;
+    return Math.floor(remain >= 0 ? remain : remain + m);
+};
+
 // number of days in month
 var daysInMonth = (month, year) => new Date(year, month+1, 0).getDate();
 
@@ -86,20 +92,24 @@ var generateCalendar = function(index=0) {
   var currMonth = now.getMonth();
   var currYear = now.getFullYear();
 
-  var targetMonth = (currMonth + index) % 12;
-  var targetFunc = (currMonth + index > 0) ? Math.floor : Math.ceil; // symmetric rounding
-  var targetYear = targetFunc((currMonth + index) / 12) + currYear;
-
+  var targetMonth = mod((currMonth + index), 12);
+  var targetYear = Math.floor((currMonth + index) / 12) + currYear;
+  
   var root;
   var element;
   var subelement;
   var fragment = document.createDocumentFragment(); // chunk
 
   // calendar obj 
+  var width = 300;
   root = document.createElement('div');
-  root.className = 'calendar-object center rounded';
-  root.dataset.index = index.toString();
-  if (index == 0) root.id = 'current';
+  root.className = 'calendar-object inline-block center rounded';
+
+  root.dataset.index = index;
+  root.style.width = `${width}px`;
+  
+  // position relative to OG calendar
+  if (index == 0) root.id = 'current-month';
 
   fragment.appendChild(root);
 
@@ -137,8 +147,6 @@ var generateCalendar = function(index=0) {
 
   element.appendChild(subelement);
   root.appendChild(element);
-
-  console.log(fragment);
   
-  return fragment; // append to HTML
+  return fragment; // document fragment
 };
