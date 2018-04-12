@@ -8,6 +8,7 @@
 
     <link rel="stylesheet" type="text/css" href="assets/css/framework.css" />
     <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <script src="assets/js/functions.js"></script>
   </head>
 
   <body>
@@ -18,6 +19,7 @@
           <div class="titlebar-section">
             <img id="titlebar-icon" src="assets/img/calendar.svg" />
           </div>
+
           <div class="toggleables-section">
             <div class="header-title clickable row">
               <div class="image-wrap col" style="background-image: url('assets/img/stack.svg')"></div>
@@ -32,84 +34,9 @@
           <div class="calendar-section">
             <div class="fade-left clickable border"></div>
             <div class="fade-right clickable border"></div>
-            <div id="current-month" class="calendar-object center rounded">
-              <div class="calendar-month-section">
-                Month
-              </div>
 
-              <div class="calendar-weekdays-section">
-                <ul class="weekdays flex center">
-                  <li>S</li>
-                  <li>M</li>
-                  <li>T</li>
-                  <li>W</li>
-                  <li>T</li>
-                  <li>F</li>
-                  <li>S</li>
-                </ul>
-              </div>
+            <!-- NOTE: insert calendar objects HERE -->
 
-              <div class="calendar-days-section">
-                <ul class="days flex center">
-                </ul> 
-                <script> // get current month info and preload 
-                  // number of days in month
-                  var daysInMonth = (month, year) => new Date(year, month+1, 0).getDate();
-                  // weekday of first day in month
-                  var firstDay = (month, year) => new Date(year, month, 1).getDay();
-
-                  var generateMonthView = function(month, year) {
-                    var now = new Date();
-                    var today = now.getDate(); // today
-                    var currMonth = now.getMonth();
-                    var currYear = now.getFullYear();
-
-                    var dayListView = '';
-                    var days = daysInMonth(month, year)
-
-                    var daysInView = 5 * 7; // rows x days in week
-                    var daysCounted = 0;
-    
-                    for (var i=firstDay(month, year); i > 0; i--) { // add prev month days to view
-                      var date = new Date(year, month,  -1 * daysCounted).getDate();
-                      var html = `<li class="prev-month">${date}</li>`;
-                      dayListView += html;
-                      daysCounted++;
-                    }
-
-                    for (var i=1; i <= days; i++) { // add current month days to view
-                      var html = `
-                        <li class="curr-month${ (i == today && currMonth == month && currYear == year) ? ' active' : '' }">
-                          ${i}
-                        </li>`
-                      ;
-                      dayListView += html;
-                      daysCounted++;
-                    }
-
-                    var daysLeft = daysInView - daysCounted;
-                    for (var i=1; i <= daysLeft; i++ ) { // add next month days to view
-                      var html = `<li class="next-month">${i}</li>`;
-                      dayListView += html;
-                      daysCounted++;
-                    } 
-
-                    return dayListView; // raw html
-                  };
-
-                  // get current month info
-                  var now = new Date();
-                  var today = now.getDate(); // today
-                  var currMonth = now.getMonth();
-                  var currYear = now.getFullYear();
-                  
-                  var currDaysView = generateMonthView(currMonth, currYear);
-                      
-                   
-                </script>
-              </div>
-
-            </div>
           </div>
 
         </div>
@@ -123,4 +50,4 @@
 
     </div>
   </body>
-</html>
+</

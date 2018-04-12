@@ -64,7 +64,7 @@ ul li {
 }
 
 [class*="-section"] {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .header-title {
@@ -101,12 +101,13 @@ ul li {
   position: relative;
   overflow-y: hidden;
   overflow-x: visible;
-  height: 300px;
+  height: 234px;
 }
 
 .calendar-object {
   position: absolute;
   width: 300px;
+  z-index: 90;
 }
 
 #current-month {
@@ -122,4 +123,33 @@ ul li {
 .calendar-object li {
   display: inline-block;
   width: calc(100% * 1/7);
+}
+
+.calendar-object .days {
+  flex-wrap: wrap;
+}
+
+.calendar-object .days .date {
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 80;
+}
+
+.calendar-object .days .date.active::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  top: 50%;
+  margin-top: -10px;
+  margin-left: -10px;
+  left: 50%;
+  z-index: -80;
+  background: #5DA395;
+  border-radius: 50%;
+}
+
+.calendar-object .days .date.prev-month,
+.calendar-object .days .date.next-month {
+  color: #9FA1A5;
 }
