@@ -30,6 +30,9 @@ ul li {
 .clickable {
   cursor: pointer;
 }
+.animated {
+  transition-duration: 0.5s;
+}
 
 [class*="-modal-container"] {
   position: relative;
@@ -147,6 +150,11 @@ ul li {
   cursor: pointer;
 }
 
+.calendar-object .days .date:hover { 
+  transition-property: color;
+  color: #2E63BC;
+}
+
 .calendar-object .days .date.active::before {
   content: "";
   position: absolute;
@@ -165,3 +173,31 @@ ul li {
 .calendar-object .days .date.next-month {
   color: #9FA1A5;
 }
+
+#schedule-date {
+  font-size: 10px;
+  color: #9FA1A5;
+}
+
+.planner .hour {
+  height: 24px;
+  line-height: 24px;
+  margin-bottom: 5px;
+}
+
+.hour .hour-text-wrapper {
+  color: #9FA1A5;
+}
+
+.hour .hour-line-wrapper::after {
+  content: '';
+  position: absolute;
+  background-color: #242730;
+  width: calc(100% - 20px);
+  left: 20px;
+  height: 4px;
+  top: 50%;
+  margin-top: -2px;
+  border-radius: 40px;
+}
+
