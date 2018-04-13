@@ -1,6 +1,6 @@
 # general
 .DS_Store
-
+server-python3.py
 venv/
 garbage.html
 
