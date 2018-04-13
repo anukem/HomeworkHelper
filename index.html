@@ -21,18 +21,18 @@
           <div class="titlebar-section">
             <img id="titlebar-icon" src="assets/img/calendar.svg" />
           </div>
-
+<!--
           <div class="toggleables-section">
             <div class="header-title clickable row">
               <div class="image-wrap col" style="background-image: url('assets/img/stack.svg')"></div>
-              <div class="header-text col"><span>Show</span> courses</div>
+              <div class="header-text col">Create course</div>
             </div>
             <div class="header-title clickable row">
               <div class="image-wrap col" style="background-image: url('assets/img/clipboard.svg')"></div>
-              <div class="header-text col"><span>Show</span> assignments</div>
+              <div class="header-text col">Create assignment</div>
             </div>
           </div>
-
+-->
           <div class="calendar-fade-container-section relative">
             <div class="fade-left absolute clickable"></div>
             <div class="fade-right absolute clickable"></div>
@@ -40,6 +40,140 @@
             <div class="calendars-container">
               <div id="calendars" >
                 <!-- NOTE: insert calendar objects HERE -->
+              </div>
+            </div>
+          </div>
+
+          <div class="schedule-section">
+            <div class="title-section">
+              <div class="header-title row">
+                <div class="image-wrap col" style="background-image: url('assets/img/star.svg')"></div>
+                <div class="header-text col">
+                  <span id="schedule-time" class="col">Today</span>
+                  <span id="schedule-date" class="col right"></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="planner-section">
+              <div id="planner" class="relative">
+
+                <div class="hour row" data-hour="0">
+                  <div class="hour-text-wrapper col col-1 right-align">12 AM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="1">
+                  <div class="hour-text-wrapper col col-1 right-align">1 AM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="2">
+                  <div class="hour-text-wrapper col col-1 right-align">2 AM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="3">
+                  <div class="hour-text-wrapper col col-1 right-align">3 AM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="4">
+                  <div class="hour-text-wrapper col col-1 right-align">4 AM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="5">
+                  <div class="hour-text-wrapper col col-1 right-align">5 AM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="6">
+                  <div class="hour-text-wrapper col col-1 right-align">6 AM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="7">
+                  <div class="hour-text-wrapper col col-1 right-align">7 AM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="8">
+                  <div class="hour-text-wrapper col col-1 right-align">8 AM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="9">
+                  <div class="hour-text-wrapper col col-1 right-align">9 AM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="10">
+                  <div class="hour-text-wrapper col col-1 right-align">10 AM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="11">
+                  <div class="hour-text-wrapper col col-1 right-align">11 AM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="12">
+                  <div class="hour-text-wrapper col col-1 right-align">12 PM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="13">
+                  <div class="hour-text-wrapper col col-1 right-align">1 PM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="14">
+                  <div class="hour-text-wrapper col col-1 right-align">2 PM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="15">
+                  <div class="hour-text-wrapper col col-1 right-align">3 PM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="16">
+                  <div class="hour-text-wrapper col col-1 right-align">4 PM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="17">
+                  <div class="hour-text-wrapper col col-1 right-align">5 PM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="18">
+                  <div class="hour-text-wrapper col col-1 right-align">6 PM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="19">
+                  <div class="hour-text-wrapper col col-1 right-align">7 PM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="20">
+                  <div class="hour-text-wrapper col col-1 right-align">8 PM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="21">
+                  <div class="hour-text-wrapper col col-1 right-align">9 PM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="22">
+                  <div class="hour-text-wrapper col col-1 right-align">10 PM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="23">
+                  <div class="hour-text-wrapper col col-1 right-align">11 PM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+                <div class="hour row" data-hour="24">
+                  <div class="hour-text-wrapper col col-1 right-align">12 AM</div>
+                  <div class="hour-line-wrapper col col-11 relative"></div>
+                </div> 
+
+                <!-- NOTE: insert course elements here -->
+                <div class="course b small absolute rounded" style="top: 230px;">
+                  <h3 class="course-title">COMS4111</h3>
+                </div>
+                
+                <div class="course a med absolute rounded" style="top: 312px;">
+                  <h3 class="course-title">COMS4170</h3>
+                  <h4 class="course-meta">10:40PM in Building A</h4>
+                </div>
+
+                <div class="course c large absolute rounded" style="top: 453px;">
+                  <h3 class="course-title">ENGL2210</h3>
+                  <h4 class="course-meta">3:10PM in Building C</h4>
+                </div>
+
               </div>
             </div>
 
@@ -50,10 +184,35 @@
 
       <div class="todo-modal-container col col-4">
         <div id="todo-modal" class="rounded">
+          <h2>To-do list</h2>
+          <h4>ASSIGNMENTS</h4>
+
+          <div id="checklist">
+            <div class="checklist-item row">
+              <div class="pie-checkmark very-high circle relative col"></div>
+              <div class="item col" contenteditable>COMS 4111 - Project 3</div>
+            </div>
+            <div class="checklist-item row">
+              <div class="pie-checkmark high circle relative col"></div>
+              <div class="item col" contenteditable>COMS 4111 - Project 3</div>
+            </div>
+            <div class="checklist-item row">
+              <div class="pie-checkmark med circle relative col"></div>
+              <div class="item col" contenteditable>COMS 4111 - Project 3</div>
+            </div>
+            <div class="checklist-item row">
+              <div class="pie-checkmark low circle relative col"></div>
+              <div class="item col" contenteditable>COMS 4111 - Project 3</div>
+            </div>
+            <div class="checklist-item row">
+              <div class="pie-checkmark very-low circle relative col"></div>
+              <div class="item col" contenteditable>COMS 4111 - Project 3</div>
+            </div>
+          </div>
 
         </div>
       </div>
 
     </div>
   </body>
-</
+</html>
