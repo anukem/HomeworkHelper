@@ -1,0 +1,1 @@
+Put sensitive shit in `./config.py` file
