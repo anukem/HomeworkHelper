@@ -59,6 +59,7 @@ ul li {
 }
 #todo-modal {
   background: #F5F6F7;
+  color: #282C36;
 }
 
 #titlebar-icon {
@@ -248,3 +249,125 @@ ul li {
 .course.c {
   background-color: #2E63BC;
 }
+
+
+/* TODO List */
+
+#todo-modal h2 {
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+#todo-modal h4 {
+  color: #9FA1A5;
+  margin-bottom: 30px;
+}
+
+.checklist-item {
+  line-height: 14px;
+  margin-left: 14px;
+  margin-bottom: 20px;
+}
+
+.checklist-item .item {
+  margin-left: 20px;
+}
+
+.pie-checkmark { 
+  width: 14px;
+  height: 14px;
+}
+.pie-checkmark::after { /* border */
+  content: '';
+  display: block;
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 16px;
+  height: 16px; border-color: inherit;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 50%;
+}
+
+.pie-checkmark.very-low {
+  background-color: #5DA395;
+  border-color: #5DA395;
+  background-image: linear-gradient(to right, transparent 50%, #ffffff 0)
+}
+.pie-checkmark.very-low::before {
+  content: '';
+  background-color: inherit;
+  display: block;
+  margin-left: 50%;
+  height: 100%;
+  border-radius: 0 100% 100% 0 / 50%;
+  background-color: inherit;
+  transform-origin: left;
+  transform: rotate(.2turn);
+}
+.pie-checkmark.low {
+  background-color: #2E63BC;
+  border-color: #2E63BC;
+  background-image: linear-gradient(to right, transparent 50%, #ffffff 0)
+}
+.pie-checkmark.low::before {
+  content: '';
+  background-color: inherit;
+  display: block;
+  margin-left: 50%;
+  height: 100%;
+  border-radius: 0 100% 100% 0 / 50%;
+  background-color: inherit;
+  transform-origin: left;
+  transform: rotate(.4turn);
+}
+.pie-checkmark.med {
+  background-color: #F3D24B;
+  border-color: #F3D24B;
+  background-image: linear-gradient(to right, transparent 50%, #ffffff 0)
+}
+.pie-checkmark.med::before {
+  content: '';
+  background-color: inherit;
+  display: block;
+  margin-left: 50%;
+  height: 100%;
+  border-radius: 0 100% 100% 0 / 50%;
+  background-color: #ffffff;
+  transform-origin: left;
+  transform: rotate(.1turn);
+}
+.pie-checkmark.high {
+  background-color: #E47D58;
+  border-color: #E47D58;
+  background-image: linear-gradient(to right, transparent 50%, #ffffff 0)
+}
+.pie-checkmark.high::before {
+  content: '';
+  background-color: inherit;
+  display: block;
+  margin-left: 50%;
+  height: 100%;
+  border-radius: 0 100% 100% 0 / 50%;
+  background-color: #ffffff;
+  transform-origin: left;
+  transform: rotate(.3turn);
+}
+.pie-checkmark.very-high {
+  background-color: #E45879;
+  border-color: #E45879;
+  background-image: linear-gradient(to right, transparent 50%, #ffffff 0)
+  animation: pulse 2s infinite;
+}
+.pie-checkmark.very-high::before {
+  content: '';
+  background-color: inherit;
+  display: block;
+  margin-left: 50%;
+  height: 100%;
+  border-radius: 0 100% 100% 0 / 50%;
+  background-color: inherit;
+  transform-origin: left;
+}
+
+
