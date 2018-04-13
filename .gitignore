@@ -1,6 +1,9 @@
 # general
 .DS_Store
-server-python3.py
+
+# python tings
 venv/
-garbage.html
+instance/config.py
+*.pyc
+__pycache__/
 
