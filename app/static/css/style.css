@@ -150,16 +150,17 @@ ul li {
   cursor: pointer;
 }
 
-.calendar-object .days .date:hover { 
+.calendar-object .days .date:not(#today):hover,
+.calendar-object .days .date.active:not(#today) { 
   transition-property: color;
-  color: #2E63BC;
+  color: #5DA395;
 }
 
-.calendar-object .days .date.active::before {
+.calendar-object .days .date#today::before {
   content: "";
   position: absolute;
-  width: 20px;
-  height: 20px;
+  width: 19px;
+  height: 19px;
   top: 50%;
   margin-top: -10px;
   margin-left: -10px;

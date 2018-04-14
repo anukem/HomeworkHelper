@@ -30,7 +30,6 @@ function schedule_init() {
   // put appropriate date
   scheduleDate.innerText = `${today.dataset.day}, ${today.dataset.month} ${today.dataset.date} ${today.dataset.year}`;
   getDaySchedule(today.dataset.date, today.dataset.month, today.dataset.year, today, loadSchedule);   
-   
 }
 
 document.onLoad = ready();

@@ -97,8 +97,8 @@ function generateMonthDays(month, year, today, currMonth, currYear) {
     element.className = 'curr-month date animated';
     // today?
     if (i == today && currMonth == month && currYear == year) {
-      element.className += ' active';
       element.id = 'today';
+      element.className += ' active';
     }
     element.innerText = i;
     addDateInfo(element, date);
@@ -226,7 +226,6 @@ function loadSchedule(err, parentElement, respData) {
     }
 
     var hours = secs => secs / 3600;
-    console.log(hours(course.startTime), hours(course.endTime), hours(course.duration));
 
     // create course div
     var elem = document.createElement('div');
@@ -264,13 +263,27 @@ function loadSchedule(err, parentElement, respData) {
 
 // date event listeners
 function addDateEventListeners(element) {
-  /* display effects */
-  element.addEventListener('click', function() {
+  var commonClassName = 'date';
+  var activeClass = 'active';
+
+
+  // $(li.date).onCLick
+  element.addEventListener('click', function(event) {
+    // remove active class from others
+    Array.from(document.querySelectorAll('.'+commonClassName)).some((date) => {
+      if (date.classList.contains(activeClass)) {
+        date.classList.remove(activeClass);
+        return true;  
+      } 
+    });
+    // add active class
+    element.className += ' active'
+  
     // clear planner
     document.getElementById('planner').innerHTML = '';
+
     // AJAX Request
     return getDaySchedule(element.dataset.date, element.dataset.month, element.dataset.year, element, loadSchedule);   
   });
 }
-
 
