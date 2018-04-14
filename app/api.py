@@ -1,4 +1,4 @@
-from . import app, db
+from . import app, util
 from flask import jsonify, render_template, request
 
 def convert_to_seconds(time_str):
@@ -13,31 +13,9 @@ def day_schedule():
     request_data = request.get_json() 
     
     response = []
-    for i in range(1): # TODO: db
-        start_time = convert_to_seconds('13:10:00')
-        end_time = convert_to_seconds('14:25:00')
-        course_info =  {
-            'courseName': 'COMS4111',
-            'professor': 'Professor Gravano',
-            'location': 'Building B',
-            'startTime': start_time, # seconds
-            'endTime': end_time, # seconds
-            'duration': end_time - start_time, # seconds
-            'assignments': []
-        }
-        response.append(course_info)
 
-    start_time = convert_to_seconds('10:10:00')
-    end_time = convert_to_seconds('12:00:00')
-    response.append({
-        'courseName': 'ENGL2134',
-        'professor': 'Professor Tennen',
-        'location': 'Building A',
-        'startTime': start_time, # seconds
-        'endTime': end_time, # seconds
-        'duration': end_time - start_time, # seconds
-        'assignments': []
-    });
+    # gather data from db 
+    response = util.courses_for_given_day("63", request_data["day"], request_data["month"], request_data["year"])
 
     return jsonify({ 'day_schedule': response })
 

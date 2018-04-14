@@ -8,6 +8,7 @@ function getDaySchedule(day, month, year, element, callback) {
   xhttp.onreadystatechange = function() {
     if (xhttp.readyState == 4 && xhttp.status == 200) {
       respData = JSON.parse(xhttp.responseText);
+      console.log(respData);
       return callback(null, element, respData);
     } else if (xhttp.readyState == 4) {
       var err = new Error(xhttp.status);

@@ -61,6 +61,7 @@ function getDayName(day) {
 // add meta-data tags
 function addDateInfo(element, date) {
   element.dataset.month = getMonthName(date.getMonth());
+  element.dataset.monthNum = date.getMonth();
   element.dataset.day = getDayName(date.getDay());
   element.dataset.date = date.getDate();
   element.dataset.year = date.getFullYear();
@@ -283,7 +284,7 @@ function addDateEventListeners(element) {
     document.getElementById('planner').innerHTML = '';
 
     // AJAX Request
-    return getDaySchedule(element.dataset.date, element.dataset.month, element.dataset.year, element, loadSchedule);   
+    return getDaySchedule(element.dataset.date, element.dataset.monthNum, element.dataset.year, element, loadSchedule);   
   });
 }
 
