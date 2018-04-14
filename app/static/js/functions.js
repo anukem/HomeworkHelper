@@ -1,59 +1,73 @@
+// format time as str
+var getStrTimeFromSeconds = function(secs) {
+  var hours = Math.floor(secs / 3600);
+  secs -= hours * 3600;
+  var minutes = Math.floor(secs / 60); 
+  secs -= minutes * 60;
+  
+  var pm = false;
+  if (hours == 0 && minutes) {
+    hours = 12;
+  } else if (hours > 12) {
+    pm = true; 
+    hours -= 12;
+  }
+return `${hours}:${minutes} ${pm ? ('PM') : ('AM')}`;
+};
+
 // appropriately define modulo
-var mod = function (n, m) {
+var mod = function(n, m) {
     var remain = n % m;
     return Math.floor(remain >= 0 ? remain : remain + m);
 };
 
 // number of days in month
-var daysInMonth = (month, year) => new Date(year, month+1, 0).getDate();
+function daysInMonth(month, year) { return new Date(year, month+1, 0).getDate(); }
 
 // weekday of first day in month
-var firstDay = (month, year) => new Date(year, month, 1).getDay();
+function firstDay(month, year) {return new Date(year, month, 1).getDay(); }
 
 // get month name from index
-var getMonthName = (month) => [
-  "January",
-  "February", 
-  "March", 
-  "April", 
-  "May", 
-  "June", 
-  "July", 
-  "August", 
-  "September",
-  "October",
-  "November", 
-  "December"
-][month];
+function getMonthName(month) { 
+  return [
+    "January",
+    "February", 
+    "March", 
+    "April", 
+    "May", 
+    "June", 
+    "July", 
+    "August", 
+    "September",
+    "October",
+    "November", 
+    "December"
+  ][month];
+}
 
 // get day name from index
-var getDayName = (day) => [
-  "Sunday",
-  "Monday",
-  "Tuesday",
-  "Wednesday",
-  "Thursday",
-  "Friday",
-  "Saturday"
-][day];
+function getDayName(day) { 
+  return [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ][day];
+}
 
 // add meta-data tags
-var addDateInfo = function(element, date) {
+function addDateInfo(element, date) {
   element.dataset.month = getMonthName(date.getMonth());
   element.dataset.day = getDayName(date.getDay());
   element.dataset.date = date.getDate();
   element.dataset.year = date.getFullYear();
-};
+}
 
-// date event listeners
-var addDateEventListeners = function(element) {
-  element.addEventListener('click', function() {
-    // TODO
-    console.log(`${element.dataset.day}, ${element.dataset.month} ${element.dataset.date} ${element.dataset.year}`);
-  });
-};
 
-var generateMonthDays = function(month, year, today, currMonth, currYear) {
+function generateMonthDays(month, year, today, currMonth, currYear) {
   var element;
   var fragment = document.createDocumentFragment();
   var days = daysInMonth(month, year)
@@ -113,10 +127,10 @@ var generateMonthDays = function(month, year, today, currMonth, currYear) {
   } 
 
   return fragment; // document fragment
-};
+}
 
 
-var generateCalendar = function(index=0) {
+function generateCalendar(index=0) {
   /* 
     @param index: relative to current month (0) prev < 0 && next > 0 
    */
@@ -182,4 +196,81 @@ var generateCalendar = function(index=0) {
   root.appendChild(element);
   
   return fragment; // document fragment
-};
+}
+
+
+/* EVENT LISTENERS */
+
+function loadSchedule(err, parentElement, respData) {
+  if (err) return console.log('ERROR pulling schedule:', err);
+
+  var courses = respData.day_schedule; 
+  var planner = document.getElementById('planner');
+
+  // change schedule headers
+  var scheduleDate = document.getElementById('schedule-date'); 
+  scheduleDate.innerText = `${parentElement.dataset.day}, ${parentElement.dataset.month} ${parentElement.dataset.date} ${parentElement.dataset.year}`;
+
+  var timeOffset = hour => Math.floor((planner.offsetHeight / 24) * hour);
+
+  var fragment = document.createDocumentFragment();
+  courses.forEach(course => {
+    var colorClass;
+    var randomNum = Math.random();
+    if (randomNum > .66) {
+      colorClass = 'a';  
+    } else if (randomNum > .33) {
+      colorClass = 'b';  
+    } else {
+      colorClass = 'c';
+    }
+
+    var hours = secs => secs / 3600;
+    console.log(hours(course.startTime), hours(course.endTime), hours(course.duration));
+
+    // create course div
+    var elem = document.createElement('div');
+    elem.className = `course ${colorClass} absolute rounded`; 
+    elem.style.top = timeOffset(course.startTime/3600) + 'px';
+    elem.style.height = timeOffset(course.duration/3600);
+
+    elem.dataset.professor = course.professor;
+    elem.dataset.name = course.courseName;
+    elem.dataset.location = course.location;
+    elem.dataset.startTimeSeconds = course.startTime;
+    elem.dataset.endTimeSeconds = course.endTime;
+    
+    elem.dataset.startTime = getStrTimeFromSeconds(course.startTime);
+    elem.dataset.endTime = getStrTimeFromSeconds(course.endTime);
+
+    var subelem = document.createElement('h3');
+    subelem.className = 'course-title';
+    subelem.innerText = course.courseName;
+    elem.append(subelem);
+
+    if (parseInt(course.duration) > 3600) { // add course-meta in bubble
+      subelem = document.createElement('h4');
+      subelem.className = 'course-meta';
+      subelem.innerText= `${elem.dataset.startTime} @ ${course.location}`;
+      elem.append(subelem);
+    }
+
+    fragment.appendChild(elem); 
+  });
+
+  // add courses to schedule DOM
+  planner.appendChild(fragment);
+}
+
+// date event listeners
+function addDateEventListeners(element) {
+  /* display effects */
+  element.addEventListener('click', function() {
+    // clear planner
+    document.getElementById('planner').innerHTML = '';
+    // AJAX Request
+    return getDaySchedule(element.dataset.date, element.dataset.month, element.dataset.year, element, loadSchedule);   
+  });
+}
+
+

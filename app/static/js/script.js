@@ -27,7 +27,10 @@ function schedule_init() {
   var scrollMax = plannerWrapper.scrollHeight - plannerWrapper.clientHeight;
   plannerWrapper.scrollTop = scrollMax / 2;
 
+  // put appropriate date
   scheduleDate.innerText = `${today.dataset.day}, ${today.dataset.month} ${today.dataset.date} ${today.dataset.year}`;
+  getDaySchedule(today.dataset.date, today.dataset.month, today.dataset.year, today, loadSchedule);   
+   
 }
 
 document.onLoad = ready();

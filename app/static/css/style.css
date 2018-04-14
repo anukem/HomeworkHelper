@@ -4,9 +4,7 @@
 	font-family: inherit;
 	font-size: inherit;
 	font-weight: inherit;
-	border-color: inherit;
-	text-align: inherit;
-	text-decoration: inherit;
+	border-color: inherit; text-align: inherit; text-decoration: inherit;
 	margin: 0;
 	padding: 0;
 }
@@ -190,9 +188,9 @@ ul li {
   overflow: scroll;
 }
 
-#planner .hour {
-  height: 24px;
-  line-height: 24px;
+.hours-container .hour {
+  height: 32px;
+  line-height: 32px;
   margin-bottom: 5px;
 }
 
@@ -230,16 +228,6 @@ ul li {
   font-size: 10px;
 }
 
-.course.small {   /* 45 - 50 min */
-  height: 30px;
-}
-.course.med {     /* 1 hr - 1hr 30 min */
-  height: 55px;
-}
-.course.large {   /* 2hr - 3 hr */
-  height: 75px;
-}
-
 .course.a {
   background-color: #E45879;
 }
@@ -260,6 +248,10 @@ ul li {
 #todo-modal h4 {
   color: #9FA1A5;
   margin-bottom: 30px;
+}
+
+#todo-modal .checklist-section {
+  margin-bottom: 40px;
 }
 
 .checklist-item {
