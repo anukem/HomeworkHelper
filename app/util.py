@@ -4,6 +4,7 @@ import datetime
 
 def calc_day(year, month, day):
     t = [0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4]
+    month -= 1
     year -= 1 if month < 3 else 0
     days_of_the_week = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
     return days_of_the_week[(year + year//4 - year//100 + year//400 + t[month-1] + day) % 7]
@@ -18,12 +19,12 @@ def calc_day(year, month, day):
 #             'assignments': []
 #         }
 def courses_for_given_day(u_id, day, month, year):
-	# gives courses for a given day 
+	# gives courses for a given day
 
 	the_day = datetime.date(int(year), int(month), int(day))
 
 	cursor = db.execute("SELECT cid FROM takes where sid=" + u_id)
-	
+
 	courses = []
 	course_ids = []
 
@@ -59,8 +60,7 @@ def make_dictionary_from_tuples(list_of_tuples):
 		dic["duration"] = dic["endTime"] - dic["startTime"]
 		list_of_dict.append(dic)
 	return list_of_dict
-	
+
 def get_professor(p_id):
 	cursor = db.execute("SELECT first_name from users where uid=%s", p_id)
 	return cursor.fetchone()[0]
-

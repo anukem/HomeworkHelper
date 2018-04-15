@@ -190,8 +190,8 @@ ul li {
 }
 
 .hours-container .hour {
-  height: 50px;
-  line-height: 50px;
+  height: 30px;
+  line-height: 30px;
   margin-bottom: 5px;
 }
 
@@ -238,7 +238,6 @@ ul li {
 .course.c {
   background-color: #2E63BC;
 }
-
 
 /* TODO List */
 
@@ -362,5 +361,4 @@ ul li {
   background-color: inherit;
   transform-origin: left;
 }
-
 
