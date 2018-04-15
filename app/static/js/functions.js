@@ -2,14 +2,14 @@
 var getStrTimeFromSeconds = function(secs) {
   var hours = Math.floor(secs / 3600);
   secs -= hours * 3600;
-  var minutes = Math.floor(secs / 60); 
+  var minutes = Math.floor(secs / 60);
   secs -= minutes * 60;
-  
+
   var pm = false;
   if (hours == 0 && minutes) {
     hours = 12;
   } else if (hours > 12) {
-    pm = true; 
+    pm = true;
     hours -= 12;
   }
 return `${hours}:${minutes} ${pm ? ('PM') : ('AM')}`;
@@ -28,25 +28,25 @@ function daysInMonth(month, year) { return new Date(year, month+1, 0).getDate();
 function firstDay(month, year) {return new Date(year, month, 1).getDay(); }
 
 // get month name from index
-function getMonthName(month) { 
+function getMonthName(month) {
   return [
     "January",
-    "February", 
-    "March", 
-    "April", 
-    "May", 
-    "June", 
-    "July", 
-    "August", 
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
     "September",
     "October",
-    "November", 
+    "November",
     "December"
   ][month];
 }
 
 // get day name from index
-function getDayName(day) { 
+function getDayName(day) {
   return [
     "Sunday",
     "Monday",
@@ -76,6 +76,7 @@ function generateMonthDays(month, year, today, currMonth, currYear) {
   var daysInView = 5 * 7; // rows x days in week
   var daysCounted = 0;
 
+  var daysPrev = [];
   for (var i=firstDay(month, year); i > 0; i--) { // add prev month days to view
     var date = new Date(year, month,  -1 * daysCounted);
 
@@ -87,14 +88,18 @@ function generateMonthDays(month, year, today, currMonth, currYear) {
     // add listeners
     addDateEventListeners(element);
 
-    fragment.appendChild(element);
+    daysPrev.push(element);
     daysCounted++;
   }
+  daysPrev.reverse(); // correct backwards
+  daysPrev.forEach(function(element) {
+    fragment.appendChild(element);
+  });
 
   for (var i=1; i <= days; i++) { // add current month days to view
     var date = new Date(year, month, i);
 
-    element = document.createElement('li'); 
+    element = document.createElement('li');
     element.className = 'curr-month date animated';
     // today?
     if (i == today && currMonth == month && currYear == year) {
@@ -115,7 +120,7 @@ function generateMonthDays(month, year, today, currMonth, currYear) {
   for (var i=1; i <= daysLeft; i++ ) { // add next month days to view
     var date = new Date(year, month+1, i);
 
-    element = document.createElement('li'); 
+    element = document.createElement('li');
     element.className = 'next-month date animated';
     element.innerText = i;
     addDateInfo(element, date);
@@ -125,15 +130,15 @@ function generateMonthDays(month, year, today, currMonth, currYear) {
 
     fragment.appendChild(element);
     daysCounted++;
-  } 
+  }
 
   return fragment; // document fragment
 }
 
 
 function generateCalendar(index=0) {
-  /* 
-    @param index: relative to current month (0) prev < 0 && next > 0 
+  /*
+    @param index: relative to current month (0) prev < 0 && next > 0
    */
   var now = new Date();
   var today = now.getDate(); // today
@@ -142,20 +147,20 @@ function generateCalendar(index=0) {
 
   var targetMonth = mod((currMonth + index), 12);
   var targetYear = Math.floor((currMonth + index) / 12) + currYear;
-  
+
   var root;
   var element;
   var subelement;
   var fragment = document.createDocumentFragment(); // chunk
 
-  // calendar obj 
+  // calendar obj
   var width = 300;
   root = document.createElement('div');
   root.className = 'calendar-object inline-block center rounded';
 
   root.dataset.index = index;
   root.style.width = `${width}px`;
-  
+
   // position relative to OG calendar
   if (index == 0) root.id = 'current-month';
 
@@ -171,7 +176,7 @@ function generateCalendar(index=0) {
   // calendar weekdays
   element = document.createElement('div');
   element.className = 'calendar-weekdays-section';
-  
+
   subelement = document.createElement('ul');
   subelement.className = 'weekdays flex center';
   subelement.innerHTML = '<li>S</li><li>M</li><li>T</li><li>W</li><li>T</li><li>F</li><li>S</li>';
@@ -182,7 +187,7 @@ function generateCalendar(index=0) {
   // calendar days
   element = document.createElement('div');
   element.className = 'calendar-days-section';
-  
+
   subelement = document.createElement('ul');
   subelement.className = 'days flex center';
   subelement.appendChild(generateMonthDays( // get appropriate view
@@ -195,7 +200,7 @@ function generateCalendar(index=0) {
 
   element.appendChild(subelement);
   root.appendChild(element);
-  
+
   return fragment; // document fragment
 }
 
@@ -205,11 +210,11 @@ function generateCalendar(index=0) {
 function loadSchedule(err, parentElement, respData) {
   if (err) return console.log('ERROR pulling schedule:', err);
 
-  var courses = respData.day_schedule; 
+  var courses = respData.day_schedule;
   var planner = document.getElementById('planner');
 
   // change schedule headers
-  var scheduleDate = document.getElementById('schedule-date'); 
+  var scheduleDate = document.getElementById('schedule-date');
   scheduleDate.innerText = `${parentElement.dataset.day}, ${parentElement.dataset.month} ${parentElement.dataset.date} ${parentElement.dataset.year}`;
 
   var timeOffset = hour => Math.floor((planner.offsetHeight / 24) * hour);
@@ -219,9 +224,9 @@ function loadSchedule(err, parentElement, respData) {
     var colorClass;
     var randomNum = Math.random();
     if (randomNum > .66) {
-      colorClass = 'a';  
+      colorClass = 'a';
     } else if (randomNum > .33) {
-      colorClass = 'b';  
+      colorClass = 'b';
     } else {
       colorClass = 'c';
     }
@@ -230,16 +235,16 @@ function loadSchedule(err, parentElement, respData) {
 
     // create course div
     var elem = document.createElement('div');
-    elem.className = `course ${colorClass} absolute rounded`; 
+    elem.className = `course ${colorClass} absolute rounded`;
     elem.style.top = timeOffset(course.startTime/3600) + 'px';
-    elem.style.height = timeOffset(course.duration/3600);
+    elem.style.height = timeOffset(course.duration/3600) + 'px';
 
     elem.dataset.professor = course.professor;
     elem.dataset.name = course.courseName;
     elem.dataset.location = course.location;
     elem.dataset.startTimeSeconds = course.startTime;
     elem.dataset.endTimeSeconds = course.endTime;
-    
+
     elem.dataset.startTime = getStrTimeFromSeconds(course.startTime);
     elem.dataset.endTime = getStrTimeFromSeconds(course.endTime);
 
@@ -255,7 +260,7 @@ function loadSchedule(err, parentElement, respData) {
       elem.append(subelem);
     }
 
-    fragment.appendChild(elem); 
+    fragment.appendChild(elem);
   });
 
   // add courses to schedule DOM
@@ -274,17 +279,16 @@ function addDateEventListeners(element) {
     Array.from(document.querySelectorAll('.'+commonClassName)).some((date) => {
       if (date.classList.contains(activeClass)) {
         date.classList.remove(activeClass);
-        return true;  
-      } 
+        return true;
+      }
     });
     // add active class
     element.className += ' active'
-  
+
     // clear planner
     document.getElementById('planner').innerHTML = '';
 
     // AJAX Request
-    return getDaySchedule(element.dataset.date, element.dataset.monthNum, element.dataset.year, element, loadSchedule);   
+    return getDaySchedule(element.dataset.date, element.dataset.monthNum, element.dataset.year, element, loadSchedule);
   });
 }
-
