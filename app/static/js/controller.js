@@ -25,3 +25,27 @@ function getDaySchedule(day, month, year, element, callback) {
     }
   }));
 }
+
+function get_all_assignments(day, month, year, element, callback){
+  var xhttp = new XMLHttpRequest();
+  xhttp.open('POST', 'api/assignments', true);
+  xhttp.setRequestHeader('Content-Type', 'application/json');
+
+  xhttp.onreadystatechange = function() {
+    if (xhttp.readyState == 4 && xhttp.status == 200) {
+      respData = JSON.parse(xhttp.responseText);
+      return callback(null, element, respData);
+    } else if (xhttp.readyState == 4) {
+      var err = new Error(xhttp.status);
+      return callback(err, element, respData);
+    }
+  };
+
+  xhttp.send(JSON.stringify({
+    userId: 53,
+    date: {
+      day: day,
+      month: month,
+      year: year
+    }}));
+}
