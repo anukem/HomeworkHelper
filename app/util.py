@@ -19,37 +19,37 @@ def calc_day(year, month, day):
 def courses_for_given_day(u_id, day, month, year):
 	# gives courses for a given day
 
-	the_day = datetime.date(int(year), int(month), int(day))
+    the_day = datetime.date(int(year), int(month), int(day))
 
-	cursor = db.execute("SELECT cid FROM takes where sid=" + u_id)
+    cursor = db.execute("SELECT cid FROM takes where sid=%s", u_id)
 
-	courses = []
-	course_ids = []
+    courses = []
+    course_ids = []
 
-	for course in cursor:
-		course_ids.append(course[0])
+    for course in cursor:
+        course_ids.append(course[0])
 
-	for course_id in course_ids:
-		cursor = db.execute("SELECT * from courses where cid=%s", course_id)
+    for course_id in course_ids:
+        cursor = db.execute("SELECT * from courses where cid=%s", course_id)
 
-		for course in cursor:
-			cursor = db.execute("SELECT * from courses_meta where cid=%s", course_id)
-			course_metas = cursor.fetchall()
-			for course_meta in course_metas:
-				start_date = course_meta[2]
-				end_date = course_meta[3]
+        for course in cursor:
+            cursor = db.execute("SELECT * from courses_meta where cid=%s", course_id)
+            course_metas = cursor.fetchall()
+            for course_meta in course_metas:
+                start_date = course_meta[2]
+                end_date = course_meta[3]
 
-				if the_day < end_date and the_day > start_date and calc_day(start_date.year, start_date.month, start_date.day) == calc_day(the_day.year, the_day.month, the_day.day):
-					courses.append(course)
+                if the_day < end_date and the_day > start_date and calc_day(start_date.year, start_date.month, start_date.day) == calc_day(the_day.year, the_day.month, the_day.day):
+                    courses.append(course)
 
-	return make_dictionary_from_tuples(courses)
+    return make_dictionary_from_tuples(courses)
 
 def make_dictionary_from_tuples(list_of_tuples):
     list_of_dict = []
     for tup in list_of_tuples:
         dic = {}
+        # dic["courseId"] = tup[0]
         dic["courseName"] = tup[1]
-        dic["courseId"] = tup[0]
         dic["professor"] = get_professor(tup[2])
         dic["location"] = tup[3]
         dic["startTime"] = tup[4].hour * 3600
