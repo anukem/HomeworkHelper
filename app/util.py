@@ -22,7 +22,8 @@ def calc_day(year, month, day):
 def courses_for_given_day(u_id, day, month, year):
 	# gives courses for a given day
 
-    the_day = datetime.date(int(year), int(month), int(day))
+    the_day = datetime.date(int(year), int(month)+1, int(day))
+    print(the_day)
 
     cursor = db.execute("SELECT cid FROM takes where sid=%s", u_id)
 
@@ -83,7 +84,8 @@ def make_dictionary_from_tuples(list_of_tuples):
         dic["duration"] = dic["endTime"] - dic["startTime"]
 
         list_of_dict.append(dic)
-        return list_of_dict
+
+    return list_of_dict
 
 #*****************************COURSES_END*********************************#
 
@@ -91,6 +93,7 @@ def make_dictionary_from_tuples(list_of_tuples):
 
 def get_all_assignments(u_id, date):
     courses = courses_for_given_day(u_id, date["day"], date["month"], date["year"])
+    print(courses)
 
     answer = []
     if len(courses) == 0:
@@ -114,4 +117,3 @@ def get_all_assignments(u_id, date):
 def get_professor(p_id):
 	cursor = db.execute("SELECT uid, first_name, last_name from users where uid=%s", p_id)
 	return cursor.fetchone()
-

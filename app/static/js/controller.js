@@ -1,5 +1,5 @@
 function getUserId() { // TODO
-  return '53';
+  return '55';
 }
 
 
@@ -32,7 +32,7 @@ function getDateSchedule(date, element, callback) {
 // AJAX request: get assignments - 'api/assignments'
 function getAssignments(date, element, callback) {
   var xhttp = new XMLHttpRequest();
-  xhttp.open('POST', 'api/courses', true);
+  xhttp.open('POST', 'api/assignments', true);
   xhttp.setRequestHeader('Content-Type', 'application/json');
   // data response
   xhttp.onreadystatechange = function() {

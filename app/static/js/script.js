@@ -2,6 +2,7 @@ function ready() {
   // init interface
   calendar_init();
   schedule_init();
+  assignments_init();
 
   // course detail modal
   var detailModal = document.getElementById('detail-modal');
@@ -31,6 +32,20 @@ function ready() {
       if (err) return console.log('ERROR: course not created', err);
       return console.log('Course created', respData);
     });
+  });
+}
+
+function assignments_init() {
+  var today = document.getElementById('today');
+  var date = {
+    day: today.dataset.date,
+    month: today.dataset.monthNum,
+    year: today.dataset.year
+  }
+  getAssignments(date, today, function(err, element, respData) {
+    if (err) return console.log('fuck', err);
+
+    return console.log(respData);
   });
 }
 
