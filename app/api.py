@@ -69,21 +69,21 @@ def get_assignments():
     """
     request_data = request.get_json()
     uid = request_data['uid']
-    if request_data.get('date') and request_data.get('course'):
-        # specific user's assignments on due @date in @course
-        return
-    elif request_data.get('date'):
-        # get assignments due @date
-        day = request_data['date']['day']
-        month = request_data['date']['month']
-        year = request_data['date']['year']
+    # if request_data.get('date') and request_data.get('course'):
+    #     # specific user's assignments on due @date in @course
+    #     return
+    # elif request_data.get('date'):
+    #     # get assignments due @date
+    #     day = request_data['date']['day']
+    #     month = request_data['date']['month']
+    #     year = request_data['date']['year']
 
-        return # specific user's assignments
-    elif request_data.get('course'):
-        # all user's assignments in @course
-        return
+    #     return # specific user's assignments
+    # elif request_data.get('course'):
+    #     # all user's assignments in @course
+    #     return
 
-    return # all user's assignments
+    return util.get_all_assignments(uid, request_data["date"])
 
 @app.route('/api/teachers', methods=['POST'])
 def get_teachers():
