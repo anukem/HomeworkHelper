@@ -120,7 +120,12 @@ def create_course():
         "teacherId"     <int> -> assoc teacher (user) id
     }
     """
-    return
+    request_data = request.get_json()
+    return util.create_course(request_data["userId"], 
+    							request_data["startDate"], 
+    							request_data["endDate"], 
+    							request_data["daysOfWeek"],
+    							request_data["teacherId"])
 
 @app.route('/api/create-assignment', methods=['POST'])
 def create_assignment():
