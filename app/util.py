@@ -1,6 +1,12 @@
 from . import app, db
 import datetime
 
+def convert_to_seconds(time_str):
+    """
+    24-Hour Format
+    %HH:%MM:%SS
+    """
+    return sum(x * int(t) for x, t in zip([1, 60, 3600], reversed(time_str.split(':'))))
 
 def calc_day(year, month, day):
     t = [0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4]
@@ -52,6 +58,7 @@ def make_dictionary_from_tuples(list_of_tuples):
 		dic = {}
 
 		dic["courseName"] = tup[1]
+        dic{"courseId"} = tup[0]
 		dic["professor"] = get_professor(tup[2])
 		dic["location"] = tup[3]
 		dic["startTime"] = tup[4].hour * 3600
