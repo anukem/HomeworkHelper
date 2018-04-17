@@ -21,6 +21,17 @@ function ready() {
   closeCreateModal.addEventListener('click', event => {
       createModal.style.display = 'none';
   });
+
+  // create course
+  var createCourseButton = document.getElementById('create-course-button');
+  createCourseButton.addEventListener('click', function(event) {
+    var course = parseCourseInfo();
+    console.log(course);
+    createCourse(course, createModal, function(err, createModal, respData) {
+      if (err) return console.log('ERROR: course not created', err);
+      return console.log('Course created', respData);
+    });
+  });
 }
 
 function calendar_init() {
