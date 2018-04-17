@@ -318,7 +318,7 @@ function loadSchedule(err, parentElement, respData) {
 // course bubble event listeners
 function addCourseEventListeners(element) {
   var targetColor = element.style.backgroundColor;
-  var modal = document.getElementById('edit-modal');
+  var modal = document.getElementById('detail-modal');
   // $(div.course).onClick
   element.addEventListener('click', function(event) {
       // clear modal
