@@ -221,49 +221,57 @@ function loadSchedule(err, parentElement, respData) {
   var timeOffset = hour => Math.floor((planner.offsetHeight / 24) * hour);
 
   var fragment = document.createDocumentFragment();
-  courses.forEach(course => {
-    var colorClass;
-    var randomNum = Math.random();
-    if (randomNum > .66) {
-      colorClass = 'a';
-    } else if (randomNum > .33) {
-      colorClass = 'b';
-    } else {
-      colorClass = 'c';
-    }
 
-    var hours = secs => secs / 3600;
+  if (!courses) {
+      var element = document.createElement('h1');
+      element.className += 'no-results center absolute'
+      element.innerText = 'Empty Schedule!';
+      planner.appendChild(element);
+  } else {
+    courses.forEach(course => {
+      var colorClass;
+      var randomNum = Math.random();
+      if (randomNum > .66) {
+        colorClass = 'a';
+      } else if (randomNum > .33) {
+        colorClass = 'b';
+      } else {
+        colorClass = 'c';
+      }
 
-    // create course div
-    var elem = document.createElement('div');
-    elem.className = `course ${colorClass} absolute rounded`;
-    elem.style.top = timeOffset(course.startTime/3600) + 'px';
-    elem.style.height = timeOffset(course.duration/3600) + 'px';
+      var hours = secs => secs / 3600;
 
-    elem.dataset.professor = course.professor;
-    elem.dataset.courseId = course.courseId;
-    elem.dataset.name = course.courseName;
-    elem.dataset.location = course.location;
-    elem.dataset.startTimeSeconds = course.startTime;
-    elem.dataset.endTimeSeconds = course.endTime;
+      // create course div
+      var elem = document.createElement('div');
+      elem.className = `course ${colorClass} absolute rounded`;
+      elem.style.top = timeOffset(course.startTime/3600) + 'px';
+      elem.style.height = timeOffset(course.duration/3600) + 'px';
 
-    elem.dataset.startTime = getStrTimeFromSeconds(course.startTime);
-    elem.dataset.endTime = getStrTimeFromSeconds(course.endTime);
+      elem.dataset.professor = course.professor;
+      elem.dataset.courseId = course.courseId;
+      elem.dataset.name = course.courseName;
+      elem.dataset.location = course.location;
+      elem.dataset.startTimeSeconds = course.startTime;
+      elem.dataset.endTimeSeconds = course.endTime;
 
-    var subelem = document.createElement('h3');
-    subelem.className = 'course-title';
-    subelem.innerText = course.courseName;
-    elem.append(subelem);
+      elem.dataset.startTime = getStrTimeFromSeconds(course.startTime);
+      elem.dataset.endTime = getStrTimeFromSeconds(course.endTime);
 
-    if (parseInt(course.duration) > 3600) { // add course-meta in bubble
-      subelem = document.createElement('h4');
-      subelem.className = 'course-meta';
-      subelem.innerText= `${elem.dataset.startTime} @ ${course.location}`;
+      var subelem = document.createElement('h3');
+      subelem.className = 'course-title';
+      subelem.innerText = course.courseName;
       elem.append(subelem);
-    }
 
-    fragment.appendChild(elem);
-  });
+      if (parseInt(course.duration) > 3600) { // add course-meta in bubble
+        subelem = document.createElement('h4');
+        subelem.className = 'course-meta';
+        subelem.innerText= `${elem.dataset.startTime} @ ${course.location}`;
+        elem.append(subelem);
+      }
+
+      fragment.appendChild(elem);
+    });
+  }
 
   // add courses to schedule DOM
   planner.appendChild(fragment);

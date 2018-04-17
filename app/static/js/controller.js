@@ -1,5 +1,3 @@
-// TODO
-var userId = 48;
 
 // AJAX request: schedule per day
 function getDaySchedule(day, month, year, element, callback) {
@@ -19,7 +17,7 @@ function getDaySchedule(day, month, year, element, callback) {
 
   // make POST request
   xhttp.send(JSON.stringify({
-    userId: userId,
+    userId: 53,
     date: {
       day: day,
       month: month,

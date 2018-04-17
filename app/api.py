@@ -29,6 +29,7 @@ def get_courses():
     """
     request_data = request.get_json()
     uid = request_data['userId']
+
     if request_data.get('date'): # get courses on @date
         date = request_data['date']['day']
         month = request_data['date']['month']
