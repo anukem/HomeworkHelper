@@ -115,7 +115,7 @@ ul li {
 #calendars {
   width: 100%;
   height: 100%;
-  overflow: scroll; 
+  overflow: scroll;
   padding: 0 50px;
   white-space: nowrap;
 }
@@ -151,7 +151,7 @@ ul li {
 }
 
 .calendar-object .days .date:not(#today):hover,
-.calendar-object .days .date.active:not(#today) { 
+.calendar-object .days .date.active:not(#today) {
   transition-property: color;
   color: #5DA395;
 }
@@ -239,6 +239,16 @@ ul li {
   background-color: #2E63BC;
 }
 
+.no-results {
+	font-size: 20px;
+	line-height: 20px;
+	top: calc(50% - 10px);
+	left: 50%;
+	width: 200px;
+	margin-left: -100px;
+	z-index: 300
+}
+
 /* TODO List */
 
 #todo-modal h2 {
@@ -264,7 +274,7 @@ ul li {
   margin-left: 20px;
 }
 
-.pie-checkmark { 
+.pie-checkmark {
   width: 14px;
   height: 14px;
 }
@@ -361,4 +371,3 @@ ul li {
   background-color: inherit;
   transform-origin: left;
 }
-
