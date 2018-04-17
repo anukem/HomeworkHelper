@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    {% block head %}
+      <title>Homework Helper - {% block title %}{% endblock %}</title>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+
+      <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/framework.css') }}" />
+      <link rel="stylesheet" href="{{ url_for('static', filename='css/form.css') }}" />
+    {% endblock %}
+  </head>
+
+  <body>
+    <div class="form-modal-container relative">
+      <div id="form-modal" class="rounded">
+        {% block form %}{% endblock %}
+      </div>
+    </div>
+  </body>
+</html>
