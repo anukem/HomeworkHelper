@@ -12,7 +12,9 @@ var getStrTimeFromSeconds = function(secs) {
     pm = true;
     hours -= 12;
   }
-return `${hours}:${minutes} ${pm ? ('PM') : ('AM')}`;
+
+  minutes = (minutes < 10) ? ('0'+minutes.toString()) : minutes.toString();
+  return `${hours}:${minutes} ${pm ? ('PM') : ('AM')}`;
 };
 
 // appropriately define modulo
@@ -66,7 +68,18 @@ function addDateInfo(element, date) {
   element.dataset.date = date.getDate();
   element.dataset.year = date.getFullYear();
 }
+function addCourseInfo(element, course) {
+    element.dataset.teacherId = course.teacherId;
+    element.dataset.teacherName = course.teacherName;
+    element.dataset.courseId = course.courseId;
+    element.dataset.name = course.courseName;
+    element.dataset.location = course.location;
+    element.dataset.startTimeSeconds = course.startTime;
+    element.dataset.endTimeSeconds = course.endTime;
 
+    element.dataset.startTime = getStrTimeFromSeconds(course.startTime);
+    element.dataset.endTime = getStrTimeFromSeconds(course.endTime);
+}
 
 function generateMonthDays(month, year, today, currMonth, currYear) {
   var element;
@@ -229,33 +242,27 @@ function loadSchedule(err, parentElement, respData) {
       planner.appendChild(element);
   } else {
     courses.forEach(course => {
-      var colorClass;
-      var randomNum = Math.random();
-      if (randomNum > .66) {
-        colorClass = 'a';
-      } else if (randomNum > .33) {
-        colorClass = 'b';
-      } else {
-        colorClass = 'c';
-      }
-
-      var hours = secs => secs / 3600;
-
       // create course div
       var elem = document.createElement('div');
-      elem.className = `course ${colorClass} absolute rounded`;
+
+      var randomNum = Math.random();
+      if (randomNum > .66) {
+        elem.style.backgroundColor = '#E45879';
+      } else if (randomNum > .33) {
+        elem.style.backgroundColor = '#E47D58';
+      } else {
+        elem.style.backgroundColor = '#2E63BC';
+      }
+
+      elem.className = `course clickable absolute rounded`;
+      var hours = secs => secs / 3600;
       elem.style.top = timeOffset(course.startTime/3600) + 'px';
       elem.style.height = timeOffset(course.duration/3600) + 'px';
 
-      elem.dataset.professor = course.professor;
-      elem.dataset.courseId = course.courseId;
-      elem.dataset.name = course.courseName;
-      elem.dataset.location = course.location;
-      elem.dataset.startTimeSeconds = course.startTime;
-      elem.dataset.endTimeSeconds = course.endTime;
-
-      elem.dataset.startTime = getStrTimeFromSeconds(course.startTime);
-      elem.dataset.endTime = getStrTimeFromSeconds(course.endTime);
+      // add meta-tags
+      addCourseInfo(elem, course);
+      // add event listeners
+      addCourseEventListeners(elem);
 
       var subelem = document.createElement('h3');
       subelem.className = 'course-title';
@@ -277,14 +284,35 @@ function loadSchedule(err, parentElement, respData) {
   planner.appendChild(fragment);
 }
 
+// course bubble event listeners
+function addCourseEventListeners(element) {
+  var targetColor = element.style.backgroundColor;
+  var modal = document.getElementById('edit-modal');
+  // $(div.course).onClick
+  element.addEventListener('click', function(event) {
+      // clear modal
+      modal.innerHTML = '';
+
+      var datatags = Object.assign({}, element.dataset);
+      Object.keys(datatags).forEach(k => {
+        modal.innerHTML += `${k}: ${datatags[k]}<br>`;
+      });
+
+      modal.style.borderLeftColor = targetColor;
+      modal.style.display = 'block';
+  });
+}
+
 // date event listeners
 function addDateEventListeners(element) {
+  var modal = document.getElementById('detail-modal');
+
   var commonClassName = 'date';
   var activeClass = 'active';
 
-
   // $(li.date).onCLick
   element.addEventListener('click', function(event) {
+    modal.style.display = '';
     // remove active class from others
     Array.from(document.querySelectorAll('.'+commonClassName)).some((date) => {
       if (date.classList.contains(activeClass)) {
@@ -298,7 +326,13 @@ function addDateEventListeners(element) {
     // clear planner
     document.getElementById('planner').innerHTML = '';
 
+    var date = {
+      day: element.dataset.date,
+      month: element.dataset.monthNum,
+      year: element.dataset.year
+    };
+
     // AJAX Request
-    return getDaySchedule(element.dataset.date, element.dataset.monthNum, element.dataset.year, element, loadSchedule);
+    return getDateSchedule(date, element, loadSchedule);
   });
 }

@@ -191,6 +191,7 @@ ul li {
 
 .hours-container .hour {
   height: 30px;
+	cursor: pointer;
   line-height: 30px;
   margin-bottom: 5px;
 }
@@ -227,16 +228,6 @@ ul li {
 .course h4 {
   font-weight: 300;
   font-size: 10px;
-}
-
-.course.a {
-  background-color: #E45879;
-}
-.course.b {
-  background-color: #E47D58;
-}
-.course.c {
-  background-color: #2E63BC;
 }
 
 .no-results {
@@ -370,4 +361,51 @@ ul li {
   border-radius: 0 100% 100% 0 / 50%;
   background-color: inherit;
   transform-origin: left;
+}
+
+/* course edit modal */
+
+#create-modal {
+	display: none;
+	color: #282C36;
+	background-color: #F5F6F7;
+	height: 320px;
+	width: calc(100% - 60px);
+	padding: 16px;
+	top: 30px;
+	z-index: 500;
+}
+
+#create-modal #close-create {
+	right: 0;
+}
+
+#create-modal h2 {
+	font-size: 14px;
+	margin-bottom: 16px;
+}
+
+#create-modal .entry-log,
+#create-modal #createDaysOfWeek {
+	margin-bottom: 16px;
+}
+
+#create-modal .input-container {
+	padding-right: 10px;
+}
+#create-modal .input-container input {
+	padding: 2px;
+}
+
+#detail-modal {
+	display: none;
+	color: #282C36;
+	background-color: #F5F6F7;
+	border-left: 10px solid;
+	height: 300px;
+	width: calc(55% - 60px);
+	padding: 16px;
+	bottom: 30px;
+	right: 30px;
+	z-index: 300;
 }

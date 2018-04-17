@@ -1,0 +1,49 @@
+* {
+	box-sizing: border-box;
+	color: inherit;
+	font-family: inherit;
+	font-size: inherit;
+	font-weight: inherit;
+	border-color: inherit; text-align: inherit; text-decoration: inherit;
+	margin: 0;
+	padding: 0;
+}
+
+html, body {
+	height: 100vh;
+	width: 100vw;
+	background: #242730;
+	font-family: 'Gotham Rounded', sans-serif;
+  color: #F5F6F7;
+	font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.7px;
+	position: relative;
+}
+
+ul li {
+  list-style-type: none;
+}
+
+.clickable {
+  cursor: pointer;
+}
+.animated {
+  transition-duration: 0.5s;
+}
+
+[class*="-modal-container"] {
+  position: relative;
+  height: 100%;
+  padding: 50px;
+}
+
+#form-modal {
+	background-color: #F5F6F7;
+  padding: 30px;
+  width: 50%;
+	max-width: 500px;
+	margin: auto;
+  height: 100%;
+  overflow: hidden;
+}

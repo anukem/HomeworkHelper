@@ -1,5 +1,5 @@
-/* a lightweight but incredibly lit CSS framework 
- * -- by Braxton Gunter 
+/* a lightweight but incredibly lit CSS framework
+ * -- by Braxton Gunter
  */
 
 /* dev */
@@ -32,10 +32,10 @@
 	bottom: 0;
 }
 .overlay-dark {
-	background-color: rgba(0,0,0, 0.75);
+	background-color: rgba(40,44,54, 0.85);
 }
 .overlay-light {
-	background-color: rgba(255,255,255, 0.75);
+	background-color: rgba(245,246,247, 0.75);
 }
 
 /* position */
@@ -43,7 +43,7 @@
   position: relative;
 }
 .absolute {
-  position: absolute; 
+  position: absolute;
 }
 .fixed {
   position: fixed;
@@ -127,8 +127,8 @@
 
 [class*='rounded'],
 .circle {
-	-webkit-background-clip: padding-box; 
-  -moz-background-clip: padding; 
+	-webkit-background-clip: padding-box;
+  -moz-background-clip: padding;
   background-clip: padding-box;
 }
 .rounded {
@@ -357,7 +357,7 @@
 	.md-col {
 		float: left;
 	}
-	
+
 	/* columns */
 	.md-col-1 {
 		width: 8.33%;
@@ -405,7 +405,7 @@
 	.lg-col {
 		float: left;
 	}
-	
+
 	/* columns */
 	.lg-col-1 {
 		width: 8.33%;

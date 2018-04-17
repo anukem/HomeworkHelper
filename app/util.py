@@ -52,9 +52,9 @@ def create_course(u_id, start_date, end_date, days_of_the_week, p_id):
      # cid |    name    | tid |  location  | start_time | end_time
      # INSERT INTO courses VALUES (DEFAULT, 'COMS 1004', 21, '501 LERNER', '16:00:00', '17:45:00');
     db.execute("INSERT INTO COURSES VALUES (DEFAULT, 'FAKE_CLASS', '%s', 'LOCATION*', '16:00:00', '17:45:00')", (p_id))
-    
+
     c_id = db.execute("SELECT cid from COURSES WHERE tid=%s AND name=%s", (p_id, "FAKE_CLASS")).fetchone()[0]
-    # mid | cid | start_date |  end_date  | recurrence_interval    
+    # mid | cid | start_date |  end_date  | recurrence_interval
     start_date = date_object(start_date)
     end_date = date_object(end_date)
     db.execute("INSERT INTO COURSES_META VALUES (DEFAULT, %s, %s, %s, '7 Days')", (c_id, start_date, end_date))
@@ -62,16 +62,21 @@ def create_course(u_id, start_date, end_date, days_of_the_week, p_id):
 
 def make_dictionary_from_tuples(list_of_tuples):
     list_of_dict = []
+
     for tup in list_of_tuples:
+        teacherTuple = get_professor(tup[2])
+
         dic = {}
         dic["courseId"] = tup[0]
         dic["courseName"] = tup[1]
-        dic["professor"] = get_professor(tup[2])
+        dic["teacherId"] = teacherTuple[0]
+        dic["teacherName"] = teacherTuple[1] + ' ' + teacherTuple[2]
         dic["location"] = tup[3]
         dic["startTime"] = tup[4].hour * 3600
         dic["endTime"] = tup[5].hour * 3600
         from datetime import datetime, date
         dic["duration"] = dic["endTime"] - dic["startTime"]
+
         list_of_dict.append(dic)
         return list_of_dict
 
@@ -102,13 +107,5 @@ def get_all_assignments(u_id, date):
 #*****************************HELPER_METHODS*********************************#
 
 def get_professor(p_id):
-    # returns a professor tuple for a given p_id
-	cursor = db.execute("SELECT first_name from users where uid=%s", p_id)
-	return cursor.fetchone()[0]
-
-def date_object(date):
-    day = date["day"]
-    month = date["month"]
-    year = date["year"]
-
-    return str(day) + "/" + str(month) + "/" + str(year)
+	cursor = db.execute("SELECT uid, first_name, last_name from users where uid=%s", p_id)
+	return cursor.fetchone()
