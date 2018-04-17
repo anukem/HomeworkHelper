@@ -3,7 +3,7 @@ from flask import jsonify, render_template, request
 
 ###--- READ ---###
 
-@app.route('/api/courses', methods=['POST'])
+@app.route('/api/courses', methods=['POST', "GET"])
 def get_courses():
     """
     endpoint for getting all courses or those on specific day
@@ -39,7 +39,7 @@ def get_courses():
         return jsonify({ 'courses': response })
     return # all user's courses
 
-@app.route('/api/assigments', methods=['POST'])
+@app.route('/api/assigments', methods=['POST', 'GET'])
 def get_assignments():
     """
     endpoint for getting user's assignments, whether it be all, those
@@ -100,7 +100,7 @@ def get_teachers():
 ###--- CREATE ---###
 
 
-@app.route('/api/create-course', methods=['POST'])
+@app.route('/api/create-course', methods=['POST', 'GET'])
 def create_course():
     """
     endpoint for course creation
