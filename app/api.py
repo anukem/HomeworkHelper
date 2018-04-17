@@ -166,7 +166,7 @@ def update_course():
 
 ###--- DELETE ---###
 
-@app.route('/api/delete-course'), methods=['POST']
+@app.route('/api/delete-course', methods=['POST'])
 def delete_course():
     """
     @req_fmt = {
@@ -176,7 +176,7 @@ def delete_course():
     """
     return
 
-@app.route('/api/delete-assignment'), methods=['POST']
+@app.route('/api/delete-assignment', methods=['POST'])
 def delete_assignment():
     """
     @req_fmt = {
