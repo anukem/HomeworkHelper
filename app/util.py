@@ -49,7 +49,7 @@ def courses_for_given_day(u_id, day, month, year):
 
 def date_object(date):
     day = date["day"]
-    month = date["month"]
+    month = date["month"] + 1
     year = date["year"]
     return str(day) + "/" + str(month) + "/" + str(year)
 
