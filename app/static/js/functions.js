@@ -207,10 +207,11 @@ function generateCalendar(index=0) {
 
 /* EVENT LISTENERS */
 
+// POST to '/api/courses' w/ date
 function loadSchedule(err, parentElement, respData) {
   if (err) return console.log('ERROR pulling schedule:', err);
 
-  var courses = respData.day_schedule;
+  var courses = respData.courses;
   var planner = document.getElementById('planner');
 
   // change schedule headers
@@ -240,6 +241,7 @@ function loadSchedule(err, parentElement, respData) {
     elem.style.height = timeOffset(course.duration/3600) + 'px';
 
     elem.dataset.professor = course.professor;
+    elem.dataset.courseId = course.courseId;
     elem.dataset.name = course.courseName;
     elem.dataset.location = course.location;
     elem.dataset.startTimeSeconds = course.startTime;
