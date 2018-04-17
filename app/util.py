@@ -112,7 +112,3 @@ def date_object(date):
     year = date["year"]
 
     return str(day) + "/" + str(month) + "/" + str(year)
-
-# start_date = {"day": "01", "month": "04", "year": 2018}
-# end_date = {"day": "01", "month": "05", "year": 2018}
-# create_course(50, start_date, end_date, [], 21)
