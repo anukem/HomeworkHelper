@@ -81,6 +81,37 @@ function addCourseInfo(element, course) {
     element.dataset.endTime = getStrTimeFromSeconds(course.endTime);
 }
 
+// from create-course modal
+function parseCourseInfo() { // TODO
+  return {
+    userId: getUserId(),
+    courseName: 'COMS4107',
+    location: 'Building A',
+    startDate: {
+      day: 9,
+      month: 0,
+      year: 2018
+    },
+    endDate: {
+      day: 8,
+      month: 4,
+      year: 2018
+    },
+    startTime: {
+      hours: 12,
+      minutes: 10,
+      seconds: 0,
+    },
+    endTime: {
+      hours: 2,
+      minutes: 00,
+      seconds: 0,
+    },
+    daysOfWeek: [2, 4],
+    teacherId: 31
+  };
+}
+
 function generateMonthDays(month, year, today, currMonth, currYear) {
   var element;
   var fragment = document.createDocumentFragment();
