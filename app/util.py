@@ -47,6 +47,11 @@ def courses_for_given_day(u_id, day, month, year):
 
     return make_dictionary_from_tuples(courses)
 
+def date_object(date):
+    day = date["day"]
+    month = date["month"]
+    year = date["year"]
+    return day + "/" + month + "/" + year
 
 def create_course(u_id, start_date, end_date, days_of_the_week, p_id):
      # cid |    name    | tid |  location  | start_time | end_time
@@ -109,3 +114,4 @@ def get_all_assignments(u_id, date):
 def get_professor(p_id):
 	cursor = db.execute("SELECT uid, first_name, last_name from users where uid=%s", p_id)
 	return cursor.fetchone()
+

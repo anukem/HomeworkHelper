@@ -39,7 +39,7 @@ def get_courses():
         return jsonify({ 'courses': response })
     return # all user's courses
 
-@app.route('/api/assigments', methods=['POST', 'GET'])
+@app.route('/api/assignments', methods=['POST', 'GET'])
 def get_assignments():
     """
     endpoint for getting user's assignments, whether it be all, those
