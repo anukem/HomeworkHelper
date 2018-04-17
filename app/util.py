@@ -51,7 +51,7 @@ def date_object(date):
     day = date["day"]
     month = date["month"]
     year = date["year"]
-    return day + "/" + month + "/" + year
+    return str(day) + "/" + str(month) + "/" + str(year)
 
 def create_course(u_id, start_date, end_date, days_of_the_week, p_id):
      # cid |    name    | tid |  location  | start_time | end_time
