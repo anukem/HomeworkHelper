@@ -315,10 +315,17 @@ function loadSchedule(err, parentElement, respData) {
   planner.appendChild(fragment);
 }
 
+// POST to 'api/assignments'
+function loadAssignments(err, parentElement, respData) {
+  if (err) return console.log('ERROR pulling assignments:', err);
+
+  console.log(respData);
+}
+
 // course bubble event listeners
 function addCourseEventListeners(element) {
   var targetColor = element.style.backgroundColor;
-  var modal = document.getElementById('edit-modal');
+  var modal = document.getElementById('detail-modal');
   // $(div.course).onClick
   element.addEventListener('click', function(event) {
       // clear modal
@@ -364,6 +371,7 @@ function addDateEventListeners(element) {
     };
 
     // AJAX Request
-    return getDateSchedule(date, element, loadSchedule);
+    getAssignments(date, element, loadAssignments);
+    getDateSchedule(date, element, loadSchedule);
   });
 }
