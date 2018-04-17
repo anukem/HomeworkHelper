@@ -1,6 +1,26 @@
 function ready() {
+  // init interface
   calendar_init();
   schedule_init();
+
+  // course detail modal
+  var detailModal = document.getElementById('detail-modal');
+  detailModal.addEventListener('click', event => {
+    detailModal.style.display = 'none';
+  });
+
+  // course create modal
+  var createModal = document.getElementById('create-modal');
+  document.querySelectorAll('.hours-container .hour').forEach((elem, i) => {
+    var dataHour = elem.dataset.hour;
+    elem.addEventListener('click', event => {
+      createModal.style.display = 'block';
+    });
+  });
+  var closeCreateModal = document.getElementById('close-create');
+  closeCreateModal.addEventListener('click', event => {
+      createModal.style.display = 'none';
+  });
 }
 
 function calendar_init() {
@@ -29,7 +49,12 @@ function schedule_init() {
 
   // put appropriate date
   scheduleDate.innerText = `${today.dataset.day}, ${today.dataset.month} ${today.dataset.date} ${today.dataset.year}`;
-  getDaySchedule(today.dataset.date, today.dataset.monthNum, today.dataset.year, today, loadSchedule);
+  var date = {
+    day: today.dataset.date,
+    month: today.dataset.monthNum,
+    year: today.dataset.year
+  }
+  getDateSchedule(date, today, loadSchedule);
 }
 
 document.onLoad = ready();

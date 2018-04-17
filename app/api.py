@@ -56,6 +56,7 @@ def get_assignments():
     ** REQUESTED ** @resp_fmt = <obj>[] -> [{
         "assignmentName":   <str> -> assignment name,
         "assignmentId":     <int> -> assoc assignment id,
+        "priority":         <int> -> assoc assignment priority (1-5)
         "dueDatetime":      <obj> -> {
             "day":              <int> -> queried day (1-31),
             "month":            <int> -> queried month (0-11),
@@ -103,9 +104,11 @@ def get_teachers():
 @app.route('/api/create-course', methods=['POST', 'GET'])
 def create_course():
     """
-    endpoint for course creation
+    endpoint for course creation - assume weekly interval for now
     @req_fmt = {
         "userId":       <int> -> session user id,
+        "courseName":   <str> -> course name,
+        "location":     <str> -> location,
         "startDate":    <obj> -> {
             "day":          <int> -> day (1-31),
             "month":        <int> -> month (0-11),
@@ -115,6 +118,16 @@ def create_course():
             "day":          <int> -> day (1-31),
             "month":        <int> -> month (0-11),
             "year":         <int> -> year (4 didgits)
+        },
+        "startTime":    <obj> -> {
+            "hours":        <int> -> hours (0-23),
+            "minutes":      <int> -> minutes (1-59),
+            "seconds":      <int> -> seconds (1-59),
+        },
+        "endTime":    <obj> -> {
+            "hours":        <int> -> hours (0-23),
+            "minutes":      <int> -> minutes (1-59),
+            "seconds":      <int> -> seconds (1-59),
         },
         "daysOfWeek":   <int>[] -> days of week (0-6)=(Sun-Sat),
         "teacherId"     <int> -> assoc teacher (user) id
@@ -151,18 +164,31 @@ def create_assignment():
 @app.route('/api/update-course', methods=['POST'])
 def update_course():
     """
-    endpoint for course updating
+    endpoint for course updating - assume weekly interval for now
     @req_fmt = {
         "userId":       <int> -> session user id,
+        "courseId":     <int> -> assoc course id,
+        "courseName":   <str> -> course name,
+        "location":     <str> -> location,
         "startDate":    <obj> -> {
-            <int> -> day (1-31),
-            <int> -> month (0-11),
-            <int> -> year (4 didgits)
+            "day":          <int> -> day (1-31),
+            "month":        <int> -> month (0-11),
+            "year":         <int> -> year (4 didgits)
         },
         "endDate":      <obj> -> {
-            <int> -> day (1-31),
-            <int> -> month (0-11),
-            <int> -> year (4 didgits)
+            "day":          <int> -> day (1-31),
+            "month":        <int> -> month (0-11),
+            "year":         <int> -> year (4 didgits)
+        },
+        "startTime":    <obj> -> {
+            "hours":        <int> -> hours (0-23),
+            "minutes":      <int> -> minutes (1-59),
+            "seconds":      <int> -> seconds (1-59),
+        },
+        "endTime":    <obj> -> {
+            "hours":        <int> -> hours (0-23),
+            "minutes":      <int> -> minutes (1-59),
+            "seconds":      <int> -> seconds (1-59),
         },
         "daysOfWeek":   <int>[] -> days of week (0-6)=(Sun-Sat),
         "teacherId"     <int> -> assoc teacher (user) id
