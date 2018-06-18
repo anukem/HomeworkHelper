@@ -1,3 +1,5 @@
+/* time / dates */
+
 // format time as str
 var getStrTimeFromSeconds = function(secs) {
   var hours = Math.floor(secs / 3600);
@@ -259,6 +261,14 @@ function generateCalendar(index=0) {
   return fragment; // document fragment
 }
 
+// add select for contenteditable
+function selectElementContents(element) {
+    var range = document.createRange();
+    range.selectNodeContents(element);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+}
 
 /* EVENT LISTENERS */
 
@@ -338,7 +348,6 @@ function loadSchedule(err, parentElement, respData) {
 // POST to 'api/assignments'
 function loadAssignments(err, parentElement, respData) {
   if (err) return console.log('ERROR pulling assignments:', err);
-
   console.log(respData);
 }
 
@@ -396,32 +405,87 @@ function addDateEventListeners(element) {
   });
 }
 
+// on course title edit listeners
+function addCourseTitleEventListeners(element, timeObj) {
+  var modal = document.getElementById('create-modal');
+  var head = document.getElementById('course-title');
+  var start = document.getElementById('start');
+  element.addEventListener('keypress', function(e) {
+    if (e.key == 'Enter') {
+      e.preventDefault();
+
+      var title = element.innerText.charAt(0).toUpperCase() + element.innerText.substr(1);
+      element.innerText = title;
+      head.innerText = title;
+      start.innerText = timeObj.string;
+      var div = element.parentElement;
+      // show modal
+      div.className += ' editing';
+      modal.className += ' show';
+      modal.style.borderColor = div.style.backgroundColor;
+      this.blur();
+
+    }
+  });
+}
+
+
+// backlight click event listener
+function addBacklightEventListeners() {
+  var backlight = document.getElementById('backlight');
+  backlight.addEventListener('click', function(e) {
+    if (e.target == this) {
+      var courses = document.querySelectorAll('.course');
+      var modal = document.getElementById('create-modal');
+
+      Array.from(courses).forEach(node => { node.classList.remove('editing') });
+      modal.classList.remove('show');
+    }
+  });
+}
+
 // schedule hour event listeners
 function addScheduleHourEventListeners() {
   var planner = document.getElementById('planner');
 
   planner.parentElement.addEventListener('click', function(e) {
 
-    var rect = this.getBoundingClientRect();
-    var topPos = e.clientY + this.scrollTop - rect.top;
+    if (!e.target.classList.contains('course') && !e.target.parentElement.classList.contains('course')) { // don't create course when clicking course
+      // get click pos in scrollable div
+      var rect = this.getBoundingClientRect();
+      var topPos = e.clientY + this.scrollTop - rect.top;
 
-    var elem = document.createElement('div');
-    elem.className = 'course clickable absolute rounded';
-    elem.style.top = topPos+'px';
-    elem.style.height = '75px';
+      // convert position into approximate time in seconds (2 decimals)
+      var timeSec = Math.floor(Math.round(topPos/planner.offsetHeight * 100)/100 * 24 * 3600);
+      var timeStr = getStrTimeFromSeconds(timeSec);
+      console.log(timeStr);
 
-    // NOTE: for now randomly color
-    var randomNum = Math.random();
-    if (randomNum > .66) {
-      elem.style.backgroundColor = '#E45879';
-    } else if (randomNum > .33) {
-      elem.style.backgroundColor = '#E47D58';
-    } else {
-      elem.style.backgroundColor = '#2E63BC';
+      var elem = document.createElement('div');
+      elem.className = 'course clickable absolute rounded';
+      elem.style.top = topPos+'px';
+      elem.style.height = '75px';
+
+      var subelem = document.createElement('h3');
+      subelem.className = 'course-title';
+      subelem.innerText = 'No Name';
+      subelem.contentEditable = true;
+      elem.append(subelem);
+
+      // NOTE: for now randomly color
+      var randomNum = Math.random();
+      if (randomNum > .66) {
+        elem.style.backgroundColor = '#E45879';
+      } else if (randomNum > .33) {
+        elem.style.backgroundColor = '#E47D58';
+      } else {
+        elem.style.backgroundColor = '#2E63BC';
+      }
+      planner.appendChild(elem);
+      // text
+      subelem.focus();
+      selectElementContents(subelem);
+      addCourseTitleEventListeners(subelem, { string: timeStr, seconds: timeSec });
     }
-
-    this.appendChild(elem);
   });
 }
-
 

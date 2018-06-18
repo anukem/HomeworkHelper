@@ -37,6 +37,7 @@ function schedule_init() {
   var plannerWrapper = document.querySelector('.planner-section');
 
   addScheduleHourEventListeners();
+  addBacklightEventListeners();
 
   // get scrollable element and jump to middle
   var scrollMax = plannerWrapper.scrollHeight - plannerWrapper.clientHeight;

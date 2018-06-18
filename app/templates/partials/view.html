@@ -2,6 +2,7 @@
 
 {% block head %}
   {{ super() }}
+  <script src="{{ url_for('static', filename='js/animations.js') }}"></script>
   <script src="{{ url_for('static', filename='js/functions.js') }}"></script>
   <script src="{{ url_for('static', filename='js/controller.js') }}"></script>
   <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
@@ -45,6 +46,14 @@
           <div class="planner-section">
 
             {# <div id="detail-modal" class="absolute rounded"></div> #}
+            <div id="create-modal" class="create__modal absolute rounded">
+              <h2 id="course-title" class="course__title" contenteditable>No name</h2>
+              <div class="button-type">Course</div>
+              <div class="times">
+                <span id="start" contenteditable></span> - <span id="end" contenteditable></span>
+              </div>
+            </div>
+            <div id="backlight" class="backlight"></div>
             {# <div id="create-modal" class="absolute rounded"> #}
             {#   <div class="close-container relative"> #}
             {#     <div id="close-create" class="absolute clickable">X</div> #}

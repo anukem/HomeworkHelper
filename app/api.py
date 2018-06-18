@@ -68,17 +68,21 @@ def get_assignments():
     }, ... ]
     """
     request_data = request.get_json()
+    print('jdsklfasjfldks')
+    print(request_data)
     uid = request_data['userId']
     if request_data.get('date') and request_data.get('course'):
         # specific user's assignments on due @date in @course
         return
     elif request_data.get('date'):
         # get assignments due @date
-        response = util.get_all_assignments(uid, request_data["date"])
+        response = util.get_dated_assignments(uid, request_data["date"])
         return jsonify({ 'assignments': response })
     elif request_data.get('course'):
         # all user's assignments in @course
         return
+
+    return util.get_all_assignments(uid)
 
 @app.route('/api/teachers', methods=['POST'])
 def get_teachers():
@@ -129,11 +133,13 @@ def create_course():
     }
     """
     request_data = request.get_json()
-    return util.create_course(request_data["userId"],
-    							request_data["startDate"],
-    							request_data["endDate"],
-    							request_data["daysOfWeek"],
-    							request_data["teacherId"])
+    return util.create_course(
+        request_data["userId"],
+        request_data["startDate"],
+        request_data["endDate"],
+        request_data["daysOfWeek"],
+        request_data["teacherId"]
+    )
 
 @app.route('/api/create-assignment', methods=['POST'])
 def create_assignment():

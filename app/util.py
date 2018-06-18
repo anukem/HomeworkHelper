@@ -91,7 +91,7 @@ def make_dictionary_from_tuples(list_of_tuples):
 
 #*****************************ASSIGNMENTS*********************************#
 
-def get_all_assignments(u_id, date):
+def get_dated_assignments(u_id, date):
     courses = courses_for_given_day(u_id, date["day"], date["month"], date["year"])
     print(courses)
 
@@ -102,14 +102,36 @@ def get_all_assignments(u_id, date):
         for course in courses:
             cursor = db.execute("SELECT * FROM assignments WHERE cid=%s", (course["courseId"]))
             for assignment in cursor:
-                dic = {"assignmentName": assignment[2],
-                        "assignmentId": assignment[0],
-                        "courseName": course["courseName"],
-                        "courseId": course["courseId"],
-                        "dueDateTime": assignment[3],
-                        }
+                dic = {
+                    "assignmentName": assignment[2],
+                    "assignmentId": assignment[0],
+                    "courseName": course["courseName"],
+                    "courseId": course["courseId"],
+                    "dueDateTime": assignment[3] # TODO: parse into dict
+                }
                 answer.append(dic)
     return answer
+
+def get_all_assignments(u_id):
+    answer = []
+
+    cursor = db.execute("SELECT sid, aid, priority FROM has_priority WHERE sid=%s", u_id)
+    for relation in cursor:
+        cursor_ = db.execute("SELECT aid, cid, name, due_date FROM assignments WHERE aid=%s", relation[1])
+        for assignment in cursor_:
+            course = db.execute("SELECT cname FROM courses WHERE cid=%s", assignment[1]).fetchone()
+            assignment = {
+                "assignmentId": assignment[0],
+                "courseId": assignment[1],
+                "assignmentName": assignment[2],
+                "dueDateTime": assignment[3], # TODO: parse into dict
+                "courseName": course[0],
+            }
+            answer.append(assignment)
+    return answer
+
+
+
 #*****************************ASSIGNMENTS_END*********************************#
 
 #*****************************HELPER_METHODS*********************************#
