@@ -44,6 +44,7 @@ function getAssignments(date, element, callback) {
       return callback(err, element, respData);
     }
   };
+
   // make POST request
   xhttp.send(JSON.stringify({
     userId: getUserId(),

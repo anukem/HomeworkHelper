@@ -3,36 +3,6 @@ function ready() {
   calendar_init();
   schedule_init();
   assignments_init();
-
-  // course detail modal
-  var detailModal = document.getElementById('detail-modal');
-  detailModal.addEventListener('click', event => {
-    detailModal.style.display = 'none';
-  });
-
-  // course create modal
-  var createModal = document.getElementById('create-modal');
-  document.querySelectorAll('.hours-container .hour').forEach((elem, i) => {
-    var dataHour = elem.dataset.hour;
-    elem.addEventListener('click', event => {
-      createModal.style.display = 'block';
-    });
-  });
-  var closeCreateModal = document.getElementById('close-create');
-  closeCreateModal.addEventListener('click', event => {
-      createModal.style.display = 'none';
-  });
-
-  // create course
-  var createCourseButton = document.getElementById('create-course-button');
-  createCourseButton.addEventListener('click', function(event) {
-    var course = parseCourseInfo();
-    console.log(course);
-    createCourse(course, createModal, function(err, createModal, respData) {
-      if (err) return console.log('ERROR: course not created', err);
-      return console.log('Course created', respData);
-    });
-  });
 }
 
 function assignments_init() {
@@ -42,17 +12,13 @@ function assignments_init() {
     month: today.dataset.monthNum,
     year: today.dataset.year
   }
-  getAssignments(date, today, function(err, element, respData) {
-    if (err) return console.log('fuck', err);
-
-    return console.log(respData);
-  });
+  // getAssignments(null, today, loadAssignments);
 }
 
 function calendar_init() {
   // load half-a-year forward and back
   var calendars = document.getElementById('calendars');
-  for (var i=-12; i<=12; i++) {
+  for (var i=-6; i<=6; i++) {
     var calendarView = generateCalendar(index=i);
     calendars.appendChild(calendarView);
   }
@@ -67,7 +33,10 @@ function calendar_init() {
 function schedule_init() {
   var today = document.getElementById('today');
   var scheduleDate = document.getElementById('schedule-date');
+  var scheduleTime = document.getElementById('schedule-time');
   var plannerWrapper = document.querySelector('.planner-section');
+
+  addScheduleHourEventListeners();
 
   // get scrollable element and jump to middle
   var scrollMax = plannerWrapper.scrollHeight - plannerWrapper.clientHeight;
@@ -81,6 +50,7 @@ function schedule_init() {
     year: today.dataset.year
   }
   getDateSchedule(date, today, loadSchedule);
+  // -> TODO: jump to first course
 }
 
 document.onLoad = ready();

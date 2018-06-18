@@ -6,9 +6,9 @@ var getStrTimeFromSeconds = function(secs) {
   secs -= minutes * 60;
 
   var pm = false;
-  if (hours == 0 && minutes) {
+  if (hours == 0 && minutes) { // midnight
     hours = 12;
-  } else if (hours > 12) {
+  } else if (hours > 12) { // pm
     pm = true;
     hours -= 12;
   }
@@ -17,7 +17,7 @@ var getStrTimeFromSeconds = function(secs) {
   return `${hours}:${minutes} ${pm ? ('PM') : ('AM')}`;
 };
 
-// appropriately define modulo
+// define modulo for negative numbers
 var mod = function(n, m) {
     var remain = n % m;
     return Math.floor(remain >= 0 ? remain : remain + m);
@@ -46,7 +46,6 @@ function getMonthName(month) {
     "December"
   ][month];
 }
-
 // get day name from index
 function getDayName(day) {
   return [
@@ -58,6 +57,19 @@ function getDayName(day) {
     "Friday",
     "Saturday"
   ][day];
+}
+
+// get delta from TODAY
+function getStrDeltaFromToday(date) {
+  var today = new Date();
+  var delta = Math.floor((today - date) / 1000); // seconds
+  if (0 < delta && delta < 86400) { // today
+    return 'Today';
+  } else if (delta > 0) { // past
+    return `${Math.floor(delta/86400)} days ago`;
+  } else if (delta < 0) { // future
+    return `${Math.ceil(-delta/86400)} days ahead`;
+  }
 }
 
 // add meta-data tags
@@ -148,8 +160,7 @@ function generateMonthDays(month, year, today, currMonth, currYear) {
     // today?
     if (i == today && currMonth == month && currYear == year) {
       element.id = 'today';
-      element.className += ' active';
-    }
+      element.className += ' active'; }
     element.innerText = i;
     addDateInfo(element, date);
 
@@ -258,9 +269,17 @@ function loadSchedule(err, parentElement, respData) {
   var courses = respData.courses;
   var planner = document.getElementById('planner');
 
+  var day = parentElement.dataset.day;
+  var month = parentElement.dataset.month;
+  var monthNum = parseInt(parentElement.dataset.monthNum);
+  var date = parseInt(parentElement.dataset.date);
+  var year = parseInt(parentElement.dataset.year);
+
   // change schedule headers
   var scheduleDate = document.getElementById('schedule-date');
-  scheduleDate.innerText = `${parentElement.dataset.day}, ${parentElement.dataset.month} ${parentElement.dataset.date} ${parentElement.dataset.year}`;
+  scheduleDate.innerText = `${day}, ${month} ${date} ${year}`;
+  var scheduleTime = document.getElementById('schedule-time');
+  scheduleTime.innerText = getStrDeltaFromToday(new Date(year, monthNum, date))
 
   var timeOffset = hour => Math.floor((planner.offsetHeight / 24) * hour);
 
@@ -276,6 +295,7 @@ function loadSchedule(err, parentElement, respData) {
       // create course div
       var elem = document.createElement('div');
 
+      // NOTE: for now randomly color
       var randomNum = Math.random();
       if (randomNum > .66) {
         elem.style.backgroundColor = '#E45879';
@@ -285,7 +305,7 @@ function loadSchedule(err, parentElement, respData) {
         elem.style.backgroundColor = '#2E63BC';
       }
 
-      elem.className = `course clickable absolute rounded`;
+      elem.className = 'course clickable absolute rounded';
       var hours = secs => secs / 3600;
       elem.style.top = timeOffset(course.startTime/3600) + 'px';
       elem.style.height = timeOffset(course.duration/3600) + 'px';
@@ -300,7 +320,7 @@ function loadSchedule(err, parentElement, respData) {
       subelem.innerText = course.courseName;
       elem.append(subelem);
 
-      if (parseInt(course.duration) > 3600) { // add course-meta in bubble
+     if (parseInt(course.duration) > 3600) { // add course-meta in bubble
         subelem = document.createElement('h4');
         subelem.className = 'course-meta';
         subelem.innerText= `${elem.dataset.startTime} @ ${course.location}`;
@@ -325,32 +345,32 @@ function loadAssignments(err, parentElement, respData) {
 // course bubble event listeners
 function addCourseEventListeners(element) {
   var targetColor = element.style.backgroundColor;
-  var modal = document.getElementById('detail-modal');
+  // var modal = document.getElementById('detail-modal');
   // $(div.course).onClick
-  element.addEventListener('click', function(event) {
-      // clear modal
-      modal.innerHTML = '';
-
-      var datatags = Object.assign({}, element.dataset);
-      Object.keys(datatags).forEach(k => {
-        modal.innerHTML += `${k}: ${datatags[k]}<br>`;
-      });
-
-      modal.style.borderLeftColor = targetColor;
-      modal.style.display = 'block';
-  });
+  // element.addEventListener('click', function(event) {
+  //     // clear modal
+  //     modal.innerHTML = '';
+  //
+  //     var datatags = Object.assign({}, element.dataset);
+  //     Object.keys(datatags).forEach(k => {
+  //       modal.innerHTML += `${k}: ${datatags[k]}<br>`;
+  //     });
+  //
+  //     modal.style.borderLeftColor = targetColor;
+  //     modal.style.display = 'block';
+  // });
 }
 
 // date event listeners
 function addDateEventListeners(element) {
-  var modal = document.getElementById('detail-modal');
+  // var modal = document.getElementById('detail-modal');
 
   var commonClassName = 'date';
   var activeClass = 'active';
 
   // $(li.date).onCLick
   element.addEventListener('click', function(event) {
-    modal.style.display = '';
+    // modal.style.display = '';
     // remove active class from others
     Array.from(document.querySelectorAll('.'+commonClassName)).some((date) => {
       if (date.classList.contains(activeClass)) {
@@ -371,7 +391,37 @@ function addDateEventListeners(element) {
     };
 
     // AJAX Request
-    getAssignments(date, element, loadAssignments);
+    // getAssignments(date, element, loadAssignments);
     getDateSchedule(date, element, loadSchedule);
   });
 }
+
+// schedule hour event listeners
+function addScheduleHourEventListeners() {
+  var planner = document.getElementById('planner');
+
+  planner.parentElement.addEventListener('click', function(e) {
+
+    var rect = this.getBoundingClientRect();
+    var topPos = e.clientY + this.scrollTop - rect.top;
+
+    var elem = document.createElement('div');
+    elem.className = 'course clickable absolute rounded';
+    elem.style.top = topPos+'px';
+    elem.style.height = '75px';
+
+    // NOTE: for now randomly color
+    var randomNum = Math.random();
+    if (randomNum > .66) {
+      elem.style.backgroundColor = '#E45879';
+    } else if (randomNum > .33) {
+      elem.style.backgroundColor = '#E47D58';
+    } else {
+      elem.style.backgroundColor = '#2E63BC';
+    }
+
+    this.appendChild(elem);
+  });
+}
+
+
