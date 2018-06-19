@@ -7,3 +7,5 @@ instance/config.py
 *.pyc
 __pycache__/
 
+garbage*
+tmp

@@ -1,0 +1,64 @@
+-- create tables
+CREATE TABLE IF NOT EXISTS users (
+	uid SERIAL,
+	first_name VARCHAR(16),
+	last_name VARCHAR(16),
+	email VARCHAR (16) UNIQUE NOT NULL,
+	pass_digest VARCHAR (16) NOT NULL,
+	PRIMARY KEY(uid)
+);
+CREATE TABLE IF NOT EXISTS students (
+	uid INTEGER NOT NULL,
+	class_year INTEGER,
+	PRIMARY KEY(uid),
+	FOREIGN KEY(uid) REFERENCES users ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS teachers (
+	uid INTEGER NOT NULL,
+	rating INTEGER CHECK (rating > 0 AND rating < 6),
+	PRIMARY KEY(uid),
+	FOREIGN KEY(uid) REFERENCES users ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS  courses (
+	cid SERIAL,
+	name VARCHAR(16) NOT NULL,
+	tid INTEGER NOT NULL,
+	location VARCHAR(16),
+	start_time TIME,
+	end_time TIME,
+	PRIMARY KEY(cid),
+	FOREIGN KEY(tid) REFERENCES teachers
+);
+CREATE TABLE IF NOT EXISTS takes (
+	cid INTEGER,
+  sid INTEGER,
+  PRIMARY KEY(cid, sid),
+  FOREIGN KEY(cid) REFERENCES courses ON DELETE CASCADE,
+  FOREIGN KEY(sid) REFERENCES students ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS courses_meta (
+	mid SERIAL,
+	cid INTEGER NOT NULL,
+	start_date DATE,
+	end_date DATE,
+	recurrence_interval INTERVAL,
+	PRIMARY KEY(mid),
+FOREIGN KEY(cid) REFERENCES courses ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS assignments (
+	aid SERIAL,
+	cid INTEGER NOT NULL,
+	name VARCHAR(16),
+	due_date TIMESTAMP,
+	interval INTERVAL,
+	PRIMARY KEY(aid),
+	FOREIGN KEY(cid) REFERENCES courses ON DELETE CASCADE
+);
+CREATE TABLE IF NOT EXISTS has_priority (
+	sid INTEGER NOT NULL,
+	aid INTEGER NOT NULL,
+	priority INTEGER NOT NULL CHECK (priority > 0 AND priority < 6),
+	PRIMARY KEY (sid, aid),
+	FOREIGN KEY(sid) REFERENCES students,
+	FOREIGN KEY(aid) REFERENCES assignments
+);

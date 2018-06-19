@@ -2,7 +2,6 @@ function getUserId() { // TODO
   return '55';
 }
 
-
 // AJAX request: schedule per day - 'api/courses'
 function getDateSchedule(date, element, callback) {
   var xhttp = new XMLHttpRequest();
