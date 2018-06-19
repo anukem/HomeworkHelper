@@ -29,7 +29,7 @@ var mod = function(n, m) {
 function daysInMonth(month, year) { return new Date(year, month+1, 0).getDate(); }
 
 // weekday of first day in month
-function firstDay(month, year) {return new Date(year, month, 1).getDay(); }
+function firstDay(month, year) { return new Date(year, month, 1).getDay(); }
 
 // get month name from index
 function getMonthName(month) {
@@ -162,7 +162,8 @@ function generateMonthDays(month, year, today, currMonth, currYear) {
     // today?
     if (i == today && currMonth == month && currYear == year) {
       element.id = 'today';
-      element.className += ' active'; }
+      element.className += ' active';
+    }
     element.innerText = i;
     addDateInfo(element, date);
 
@@ -274,7 +275,7 @@ function selectElementContents(element) {
 
 // POST to '/api/courses' w/ date
 function loadSchedule(err, parentElement, respData) {
-  if (err) return console.log('ERROR pulling schedule:', err);
+  if (err) return console.error('ERROR pulling schedule:', err);
 
   var courses = respData.courses;
   var planner = document.getElementById('planner');
@@ -447,23 +448,36 @@ function addBacklightEventListeners() {
 // schedule hour event listeners
 function addScheduleHourEventListeners() {
   var planner = document.getElementById('planner');
-
   planner.parentElement.addEventListener('click', function(e) {
 
-    if (!e.target.classList.contains('course') && !e.target.parentElement.classList.contains('course')) { // don't create course when clicking course
+    // don't create course when clicking course
+    if (!e.target.classList.contains('course') && !e.target.parentElement.classList.contains('course')) {
       // get click pos in scrollable div
       var rect = this.getBoundingClientRect();
       var topPos = e.clientY + this.scrollTop - rect.top;
 
-      // convert position into approximate time in seconds (2 decimals)
-      var timeSec = Math.floor(Math.round(topPos/planner.offsetHeight * 100)/100 * 24 * 3600);
+      // search for conflicts -> schedule placement
+      var conflicts = 0;
+      Array.from(document.querySelectorAll('.course')).forEach(course => {
+        var startPos = parseFloat(course.style.top);
+        var endPos = parseFloat(course.style.top) + course.clientHeight;
+        if (startPos <= topPos && topPos < endPos)
+          conflicts++;
+      });
+
+      console.log(conflicts);
+      if (conflicts > 2)
+        return console.error('TOO MANY SCHEDULE CONFLICTS');
+
+      // convert position into approximate time in seconds (2 decimals) and then round to nearest five minute interval
+      var timeSec = Math.round(Math.floor(
+        Math.round(topPos/planner.offsetHeight * 100) / 100 * 24 * 3600) / 300) * 300;
       var timeStr = getStrTimeFromSeconds(timeSec);
-      console.log(timeStr);
 
       var elem = document.createElement('div');
-      elem.className = 'course clickable absolute rounded';
+      elem.className = 'course clickable absolute rounded' + (conflicts ? ' conflict-'+conflicts : '');
       elem.style.top = topPos+'px';
-      elem.style.height = '75px';
+      elem.style.height = (planner.offsetHeight/24.0)+'px'; // an hour
 
       var subelem = document.createElement('h3');
       subelem.className = 'course-title';

@@ -203,6 +203,10 @@ ul li {
 
 .hour .hour-text-wrapper {
   color: #9FA1A5;
+  width: 60px;
+}
+.hour .hour-line-wrapper {
+  width: calc(100% - 60px);
 }
 
 .hour .hour-line-wrapper::after {
@@ -219,10 +223,16 @@ ul li {
 }
 
 .course {
-  left: calc(8.33% + 50px);
+  left: calc(60px + 40px);
   width: 25%;
   z-index: 300;
   padding: 8px;
+}
+.course.conflict-1 {
+  left: calc(25% + 60px + 60px);
+}
+.course.conflict-2 {
+  left: calc(50% + 60px + 80px);
 }
 
 .course h3 {
